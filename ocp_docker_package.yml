@@ -1,0 +1,33 @@
+---
+- hosts: all
+  user: root
+  tasks:
+   - name: Yum Update
+     yum: name=* state=latest
+
+   - name: Install packages
+     yum: name={{ item }}
+          state=installed
+     with_items:
+      - atomic-openshift-excluder
+      - atomic-openshift-docker-excluder
+
+   - name: Execute Unexcluder
+     command: 
+        atomic-openshift-excluder unexclude
+
+   - name: Install Docker
+     yum: name=docker
+          state=installed
+
+#     command: 
+#        sed -i '/OPTIONS=.*/c\OPTIONS="--selinux-enabled --insecure-registry 172.30.0.0/16"' /etc/sysconfig/docker
+
+   - name: Add --insecure-registry to /etc/sysconfig/docker
+     lineinfile:
+        path: /etc/sysconfig/docker
+        regexp: '^OPTIONS='
+        line: 'OPTIONS="--selinux-enabled --insecure-registry 172.30.0.0/16"'
+
+   - name: Enable Docker Service
+     systemd: state=started name=docker

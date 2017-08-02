@@ -1,0 +1,10 @@
+---
+- name: Install Postgres Server
+  user: root
+  hosts: all
+  tasks:
+   - name: Disable all repos
+     command: subscription-manager repos --disable="*"
+
+   - name: Enable OCP RHEL server repos
+     command: subscription-manager repos --enable="rhel-7-server-rpms"  --enable="rhel-7-server-extras-rpms" --enable="rhel-7-server-ose-3.5-rpms" --enable="rhel-7-fast-datapath-rpms"

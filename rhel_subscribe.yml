@@ -1,0 +1,19 @@
+---
+- name: Subscribe to Red Hat Subscription
+  user: root
+  hosts: all
+  vars:
+     rh_username: jnohales
+     rh_password: XXXXXXXX
+     rh_pool_id: '8a85f981566833f901566923b9b807ac'
+  tasks:
+   - name: Red Hat Subscription
+     redhat_subscription:
+       state: present
+       username: "{{ rh_username }}"
+       password: "{{ rh_password }}"
+
+   - name: Attach Pool
+     command: 
+        subscription-manager attach --pool="{{ rh_pool_id }}"
+

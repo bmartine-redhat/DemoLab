@@ -1,0 +1,8 @@
+---
+- hosts: ansiblecore
+  user: root
+  tasks:
+  - name: install Ansible Core
+    yum:
+      name: ansible
+      state: latest

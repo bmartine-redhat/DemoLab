@@ -1,0 +1,24 @@
+---
+- hosts: all
+  user: root
+  tasks:
+   - name: Yum Update
+     yum: name=* state=latest
+
+   - name: Install packages
+     yum: name={{ item }}
+          state=installed
+     with_items:
+      - wget
+      - net-tools
+      - bind-utils
+      - iptables-services
+      - bridge-utils
+      - bash-completion
+      - kexec-tools
+      - sos
+      - psacct
+      - atomic-openshift-utils
+      - atomic-openshift-excluder
+      - atomic-openshift-docker-excluder
+

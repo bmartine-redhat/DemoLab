@@ -1,0 +1,30 @@
+---
+- name: set static IP from DHCP configuration
+  user: root
+  hosts: all
+  gather_facts: True
+  tasks:
+  - name: Get Facts
+    setup:
+
+  - name: Install NetworkManager-glib
+    yum: 
+       name: NetworkManager-glib
+       state: installed
+
+  - name: IP address to Static 
+    nmcli:
+       conn_name: "{{ ansible_default_ipv4.alias }}"
+       ifname: "{{ ansible_default_ipv4.interface }}"
+       type: ethernet
+       ip4: "{{ ansible_default_ipv4.address }}/24"
+       gw4: "{{ ansible_default_ipv4.gateway }}"
+       autoconnect: yes
+       state: present
+
+#  - name: Set DNS
+#    nmcli:
+#       conn_name: "{{ ansible_default_ipv4.alias }}"
+#       dns4:
+#         - 192.168.121.1
+#       state: present

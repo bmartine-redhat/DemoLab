@@ -1,0 +1,12 @@
+---
+- hosts: all
+  user: root
+  vars:
+     node_hostname: node1.example.demo
+  tasks:
+   - name: Set Hostname
+     hostname:
+        name: "{{node_hostname}}"
+
+
+
