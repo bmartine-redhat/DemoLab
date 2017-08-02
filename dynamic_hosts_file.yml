@@ -1,0 +1,18 @@
+---
+- hosts: all
+  user: root
+  tasks:
+  - name: Gather facts
+    setup:
+
+  - name: Update /etc/hosts from inventory
+    lineinfile: 
+       dest=/etc/hosts
+       regexp="^{{hostvars[item].ansible_default_ipv4.address}}" 
+       line='{{hostvars[item].ansible_default_ipv4.address}} {{item}}' 
+       state=present
+    with_items: '{{groups.all}}'
+    tags:
+      - hosts
+
+

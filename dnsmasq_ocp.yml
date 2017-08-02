@@ -1,0 +1,61 @@
+---
+- hosts: all
+  user: root
+  tasks:
+   - name: Verify dnsmasq is installed
+     yum: 
+       name: dnsmasq
+       state: installed
+
+   - name: Uncomment domain-needed
+     lineinfile:
+       dest: /etc/dnsmasq.conf
+       regexp: '^#domain-needed'
+       line: 'domain-needed'
+       backrefs: yes
+
+   - name: Uncomment bogus-priv
+     lineinfile:
+       dest: /etc/dnsmasq.conf
+       regexp: '^#bogus-priv'
+       line: 'bogus-priv'
+       backrefs: yes
+
+   - name: Uncomment strict-order
+     lineinfile:
+       dest: /etc/dnsmasq.conf
+       regexp: '^#strict-order'
+       line: 'strict-order'
+       backrefs: yes
+
+   - name: Uncomment expand-hosts 
+     lineinfile:
+       dest: /etc/dnsmasq.conf
+       regexp: '^#expand-hosts'
+       line: 'expand-hosts'
+       backrefs: yes
+
+   - name: Set domain name 
+     lineinfile:
+       dest: /etc/dnsmasq.conf
+       regexp: '^#domain='
+       line: 'domain=example.demo'
+       backrefs: yes
+
+   - name: Add Wilcard for OCP apps domain
+     lineinfile:
+       dest: /etc/dnsmasq.conf
+       regexp: '^address=/.app.example.demo'
+       line: 'address=/.app.example.demo/192.168.121.30'
+       state: present
+
+   - name: Open DNS port in firewall
+     firewalld:
+       service=dns
+       permanent=true
+       state=enabled
+       immediate=yes
+
+   - name: Enable dnsmasq Service
+     systemd: state=started name=dnsmasq
+

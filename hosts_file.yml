@@ -1,0 +1,23 @@
+---
+- hosts: all
+  user: root
+  tasks:
+  - name: Gather facts
+    setup:
+
+  - name: Update /etc/hosts from host list
+    lineinfile: 
+       dest=/etc/hosts
+       regexp="^{{item.address}}" 
+       line='{{item.address}} {{item.name}}' 
+       state=present
+    with_items: 
+       - name: ocpmaster.example.demo
+         address: 192.168.121.30 
+       - name: ocpinfra.example.demo
+         address: 192.168.121.242 
+       - name: ocpworker1.example.demo
+         address: 192.168.121.109
+       - name: ocpworker2.example.demo
+         address: 192.168.121.13
+
