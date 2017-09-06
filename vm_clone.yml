@@ -32,6 +32,12 @@
      notify: Restart Login Service
      delegate_to: "{{ IP.stdout }}"
 
+   - name: Add "{{ IP.stdout }}" to Dynamic inventory
+     uri:
+        url: "http://192.168.121.103/add_ip.php?ip={{ IP.stdout }}"
+        method: GET
+        return_content: no
+
   handlers:
     - name: Restart Login Service
       systemd: state=restarted name=getty@tty1
