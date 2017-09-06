@@ -14,8 +14,8 @@
      command: 
        virsh start "{{ vm_destiny }}"
 
-   - name: sleep for 50 seconds to start VM
-     wait_for: timeout=50
+   - name: sleep for 30 seconds to start VM
+     wait_for: timeout=30
      delegate_to: localhost
 
    - name: Get IP
