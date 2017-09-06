@@ -1,0 +1,12 @@
+---
+- name: Clone VM 
+  user: root
+  hosts: all
+  vars:
+     vm_origin: centos7-template
+     vm_destiny: centos7-cloned-vm
+  tasks:
+   - name: Clone VM
+     command: 
+       virt-clone --original "{{ vm_origin }}" --name "{{ vm_destiny }}" --file /var/lib/libvirt/images/"{{ vm_destiny }}".qcow2
+
