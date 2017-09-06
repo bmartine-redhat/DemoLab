@@ -5,7 +5,7 @@
   vars:
      rh_username: jnohales
      rh_password: XXXXXXXX
-     rh_pool_id: '8a85f981566833f901566923b9b807ac'
+     rh_pool_id: '8a85f9815dca292c015dca6b3558025d'
   tasks:
    - name: Red Hat Subscription
      redhat_subscription:
