@@ -4,9 +4,24 @@
   hosts: all
   vars:
      vm_origin: centos7-template
-     vm_destiny: centos7-cloned-vm
+     vm_destiny: pg-vm5
   tasks:
    - name: Clone VM
      command: 
        virt-clone --original "{{ vm_origin }}" --name "{{ vm_destiny }}" --file /var/lib/libvirt/images/"{{ vm_destiny }}".qcow2
+
+   - name: Start VM
+     command: 
+       virsh start "{{ vm_destiny }}"
+
+   - name: sleep for 50 seconds to start VM
+     wait_for: timeout=50
+     delegate_to: localhost
+
+   - name: Get IP
+     shell: virsh domifaddr "{{ vm_destiny }}" | grep '192.168.121' | awk '{print $4}' | awk -F/ '{print $1}' 
+     register: IP
+
+#   - debug: msg="{{ IP.stdout }}"
+ 
 
