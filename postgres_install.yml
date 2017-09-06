@@ -1,7 +1,7 @@
 ---
 - name: Install Postgres Server
   user: root
-  hosts: demoansible
+  hosts: all
   vars:
      pguser: postgres
      pgpass: redhat
