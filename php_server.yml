@@ -1,0 +1,16 @@
+---
+- name: Clone VM 
+  user: root
+  hosts: all
+  vars:
+     vm_origin: centos7-template
+     vm_destiny: pg-vm5
+  tasks:
+  - name: Add repository
+    yum_repository:
+      name: epel
+      description: EPEL YUM repo
+      baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+
+ 
+
