@@ -22,6 +22,6 @@
      shell: virsh domifaddr "{{ vm_destiny }}" | grep '192.168.121' | awk '{print $4}' | awk -F/ '{print $1}' 
      register: IP
 
-#   - debug: msg="{{ IP.stdout }}"
+   - debug: msg="{{ IP.stdout }}"
  
 
