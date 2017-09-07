@@ -2,7 +2,7 @@
 - hosts: all
   user: root
   vars:
-    node_address: 192.168.121.1
+    node_address: 192.168.121.123
     node_hostname: fakehost.example.demo
   tasks:
   - name: Gather facts

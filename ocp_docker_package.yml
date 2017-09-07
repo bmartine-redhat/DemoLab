@@ -20,9 +20,6 @@
      yum: name=docker
           state=installed
 
-#     command: 
-#        sed -i '/OPTIONS=.*/c\OPTIONS="--selinux-enabled --insecure-registry 172.30.0.0/16"' /etc/sysconfig/docker
-
    - name: Add --insecure-registry to /etc/sysconfig/docker
      lineinfile:
         path: /etc/sysconfig/docker
