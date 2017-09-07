@@ -21,10 +21,3 @@
        gw4: "{{ ansible_default_ipv4.gateway }}"
        autoconnect: yes
        state: present
-
-#  - name: Set DNS
-#    nmcli:
-#       conn_name: "{{ ansible_default_ipv4.alias }}"
-#       dns4:
-#         - 192.168.121.1
-#       state: present

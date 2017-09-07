@@ -1,5 +1,5 @@
 ---
-- name: Install Postgres Server
+- name: Configure RHEL repos
   user: root
   hosts: ansiblecore
   tasks:

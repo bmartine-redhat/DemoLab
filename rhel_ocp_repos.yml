@@ -1,5 +1,5 @@
 ---
-- name: Install Postgres Server
+- name: Configure OCP repositories
   user: root
   hosts: all
   tasks:
