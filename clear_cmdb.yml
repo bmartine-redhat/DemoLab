@@ -1,0 +1,10 @@
+---
+- name: Clear CMDB
+  user: root
+  hosts: all
+  tasks:
+   - name: Clear CMDB list
+     uri:
+        url: "http://192.168.121.103/clear.php"
+        method: GET
+        return_content: no
