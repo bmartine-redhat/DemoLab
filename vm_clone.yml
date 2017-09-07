@@ -38,15 +38,15 @@
         method: GET
         return_content: no
 
-  - name: Name resolution for "{{ vm_destiny }}"
-    lineinfile: 
-       dest=/etc/hosts
-       regexp="^{{item.address}}" 
-       line='{{item.address}} {{item.name}}' 
-       state=present
-    with_items: 
-       - name: "{{ vm_destiny }}.example.demo {{ vm_destiny }}"
-         address: "{{ IP.stdout }}" 
+   - name: Name resolution for "{{ vm_destiny }}"
+     lineinfile: 
+        dest=/etc/hosts
+        regexp="^{{item.address}}" 
+        line='{{item.address}} {{item.name}}' 
+        state=present
+     with_items: 
+        - name: "{{ vm_destiny }}.example.demo {{ vm_destiny }}"
+          address: "{{ IP.stdout }}" 
 
 
   handlers:
