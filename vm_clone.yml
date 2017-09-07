@@ -38,6 +38,17 @@
         method: GET
         return_content: no
 
+  - name: Name resolution for "{{ vm_destiny }}"
+    lineinfile: 
+       dest=/etc/hosts
+       regexp="^{{item.address}}" 
+       line='{{item.address}} {{item.name}}' 
+       state=present
+    with_items: 
+       - name: "{{ vm_destiny }}.example.demo {{ vm_destiny }}"
+         address: "{{ IP.stdout }}" 
+
+
   handlers:
     - name: Restart Login Service
       systemd: state=restarted name=getty@tty1
