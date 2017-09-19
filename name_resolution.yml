@@ -1,0 +1,21 @@
+---
+- name: Name resolv for new server 
+  user: root
+  hosts: all
+  vars:
+     vm_destiny: clonedVM
+
+  tasks:
+   - name: Get IP
+     shell: virsh domifaddr "{{ vm_destiny }}" | grep '192.168.121' | awk '{print $4}' | awk -F/ '{print $1}' 
+     register: IP
+
+   - name: Name resolution for "{{ vm_destiny }}"
+     lineinfile: 
+        dest=/etc/hosts
+        regexp="^{{item.address}}" 
+        line='{{item.address}} {{item.name}}' 
+        state=present
+     with_items: 
+        - name: "{{ vm_destiny }}.example.demo {{ vm_destiny }}"
+          address: "{{ IP.stdout }}" 
