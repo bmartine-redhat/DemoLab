@@ -1,0 +1,38 @@
+---
+- name: Simple Clone VM 
+  user: root
+  hosts: all
+  vars:
+     vm_origin: centos7-template
+     vm_destiny: clonedVM
+
+  tasks:
+   - name: Clone VM "{{ vm_origin }}" -->  "{{ vm_destiny }}"
+     command: 
+       virt-clone --original "{{ vm_origin }}" --name "{{ vm_destiny }}" --file /var/lib/libvirt/images/"{{ vm_destiny }}".qcow2
+     ignore_errors: yes
+
+   - name: Start VM "{{ vm_destiny }}"
+     virt:
+        name: "{{ vm_destiny }}"
+        state: running
+
+   - name: sleep for 30 seconds to start VM
+     wait_for: timeout=30
+
+   - name: Get IP
+     shell: virsh domifaddr "{{ vm_destiny }}" | grep '192.168.121' | awk '{print $4}' | awk -F/ '{print $1}' 
+     register: IP
+
+   - debug: msg="{{ IP.stdout }}"
+ 
+   - name: Set Hostname "{{ vm_destiny }}"
+     hostname:
+        name: "{{ vm_destiny }}.example.demo"
+     notify: Restart Login Service
+     delegate_to: "{{ IP.stdout }}"
+
+  handlers:
+    - name: Restart Login Service
+      systemd: state=restarted name=getty@tty1
+      delegate_to: "{{ IP.stdout }}"
