@@ -2,7 +2,7 @@
 # More examples: https://www.ovirt.org/develop/release-management/features/infra/ansible_modules/#ovirtvms
 # Example run: ansible-playbook -i '127.0.0.1,' rhv_start_vm.yml
 # export ANSIBLE_HOST_KEY_CHECKING=False
-# Example 2: ansible-playbook -i '127.0.0.1,' -e "new_vm_name=cent2.labmad.redhat.com new_vm_ip=10.32.170.82 new_vm_root_pw=redhat01 engine_password=redhat01" rhv_clone_vm.yml
+# Example 2: ansible-playbook -i '127.0.0.1,' -e "new_vm_name=cent2.labmad.redhat.com new_vm_ip=10.32.170.82 new_vm_root_pw=XXXXXX engine_password=XXXXXX" rhv_clone_vm.yml
 #
 - hosts: all
   remote_user: root
@@ -14,7 +14,7 @@
     new_vm_msk: "255.255.255.0"
     new_vm_gw: "10.32.170.254"
     new_vm_dns: "10.32.170.50"
-    new_vm_root_pw: CHANGEME
+    new_vm_root_pw: XXXXXX
     compatibility_version: 4.1
     engine_user: admin@internal
     engine_password: XXXXXX
