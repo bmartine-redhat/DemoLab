@@ -5,6 +5,6 @@
   tasks:
    - name: Clear CMDB list
      uri:
-        url: "http://192.168.121.103/clear.php"
+        url: "http://10.32.170.24/ucmdb/clear.php"
         method: GET
         return_content: no
