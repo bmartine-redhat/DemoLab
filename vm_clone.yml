@@ -34,7 +34,7 @@
 
    - name: Add "{{ IP.stdout }}" to Dynamic inventory
      uri:
-        url: "http://192.168.121.103/add_ip.php?ip={{ IP.stdout }}"
+        url: "http://ucmdb-ucmdb-jmn.app.labmad.redhat.com/add_ip.php?ip={{ IP.stdout }}"
         method: GET
         return_content: no
 
