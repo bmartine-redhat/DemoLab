@@ -1,9 +1,12 @@
 #!/bin/bash
-HOSTS=`curl http://192.168.121.103/ |sed -n -e 'H;${x;s/\n/","/g;s/^,//;p;}'`
+HOSTS=`curl http://10.32.170.24/ucmdb/ | awk -vORS=, '{ print $1 }' | sed 's/,$/\n/'`
 echo '
 {
-  "all": {
-    "hosts": ["'$HOSTS'"]
-  }
+    "dbgroup": {
+        "hosts": ['$HOSTS'],
+        "vars": {
+            "type": "Postgres Database"
+        }
+    }
 }
 '
