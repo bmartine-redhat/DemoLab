@@ -37,7 +37,7 @@
         name: "{{ new_vm_name }}"      
         state: present
         template: centos7-template
-        cluster: Upper_Nodes
+        cluster: Top_Nodes
         memory: "{{ new_vm_mem }}"
         high_availability: true
         cloud_init:
