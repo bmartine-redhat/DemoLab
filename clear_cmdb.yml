@@ -5,6 +5,6 @@
   tasks:
    - name: Clear CMDB list
      uri:
-        url: "http://ucmdb-ucmdb-jmn.app.labmad.redhat.com/clear.php"
+        url: "http://ucmdb-jmn-ucmdb.app.labmad.redhat.com/clear.php"
         method: GET
         return_content: no
