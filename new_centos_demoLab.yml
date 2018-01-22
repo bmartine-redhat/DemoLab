@@ -1,0 +1,128 @@
+---
+# More examples: https://www.ovirt.org/develop/release-management/features/infra/ansible_modules/#ovirtvms
+# Example run: ansible-playbook -i '127.0.0.1,' rhv_start_vm.yml
+# export ANSIBLE_HOST_KEY_CHECKING=False
+# Example 2: ansible-playbook -i '127.0.0.1,' -e "new_vm_name=cent2.labmad.redhat.com new_vm_ip=10.32.170.82 new_vm_root_pw=XXXXXX engine_password=XXXXXX" rhv_clone_vm.yml
+#
+- hosts: all
+  remote_user: root
+  connection: local
+  vars:
+    new_vm_name: cent2.labmad.redhat.com
+    new_vm_mem: 512MiB
+    new_vm_ip: "10.32.170.152"
+    new_vm_msk: "255.255.255.0"
+    new_vm_gw: "10.32.170.254"
+    new_vm_dns: "10.32.170.50"
+    new_vm_root_pw: XXXXXX
+    compatibility_version: 4.1
+    engine_user: admin@internal
+    engine_password: XXXXXX
+    engine_url: https://rhvm.labmad.redhat.com/ovirt-engine/api
+
+  pre_tasks:
+    - name: Login to oVirt
+      ovirt_auth:
+        url: "{{ engine_url }}"
+        username: "{{ engine_user }}"
+        password: "{{ engine_password }}"
+        insecure: "{{ engine_insecure | default(true) }}"
+      tags:
+        - always
+
+  tasks:
+   - name: Creating new VM "{{ new_vm_name }}"
+     ovirt_vms:
+        auth: "{{ ovirt_auth }}"
+        name: "{{ new_vm_name }}"      
+        state: present
+        template: centos7-template
+        cluster: Top_Nodes
+        memory: "{{ new_vm_mem }}"
+        high_availability: true
+        cloud_init:
+          nic_boot_protocol: static
+          nic_ip_address: "{{ new_vm_ip }}"
+          nic_netmask: "{{ new_vm_msk }}"
+          nic_gateway: "{{ new_vm_gw }}" 
+          nic_name: eth0
+          nic_on_boot: true
+          host_name: "{{ new_vm_name }}"
+          custom_script: |
+            write_files:
+             - content: |
+                 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDO1YG8hrN5vg8Nvshut0l1D8kvFcBSgNjrwmaJF/QfwjzMImCklr8L0b8cDtr9LFBhVwtQ4CHenpf/fB5b2FsM9GDf5GD62xd2BzmcLcf6Y2uPmpfjXafJ0UvJgchj4kdLDnHpsOQeD5E9y+yQtZCSbQfZcbgfFncJmWIPJ4DSmckYhHXL3bWIRQNIcr2mN75zv+sQXrpnlhyeJFn2CepRlGYTAdm6Fcn2lsHW3kqZCw27Nc9XFCk1kkzuS2/2czGFnd0sMWGCkHpeoQLoCWq55rBngUB/JB/o1OVpxfs4aXb9TJN8PlHxO4llbMyl2tSGA5JXw1rqc35pDvLGHBRj jmn@black.remote.csb
+               path: /root/.ssh/authorized_keys
+               permissions: '0600'
+          user_name: root
+          root_password: "{{ new_vm_root_pw }}"
+
+
+   - name: sleep for 30 seconds to contact VM
+     wait_for: timeout=30
+
+
+   - name: Set Hostname "{{ new_vm_name }}"
+     hostname:
+        name: "{{ new_vm_name }}"
+     notify: Restart Login Service
+     delegate_to: "{{ new_vm_ip }}"
+
+   - name: Set Gateway
+     command: nmcli con mod "System eth0" ipv4.gateway "{{ new_vm_gw }}"
+     delegate_to: "{{ new_vm_ip }}"
+
+   - name: Set DNS
+     command: nmcli con mod "System eth0" +ipv4.dns "{{ new_vm_dns }}"
+     delegate_to: "{{ new_vm_ip }}"
+
+   - name: Reload NIC configuration
+     command: nmcli con up "System eth0"
+     delegate_to: "{{ new_vm_ip }}"
+
+   - name: Add "{{ new_vm_ip }}" to Dynamic inventory
+     uri:
+        url: "http://10.32.170.153/add_ip.php?ip={{ new_vm_ip }}"
+        method: GET
+        return_content: no
+
+   - name: Name resolution for "{{ new_vm_name }}"
+     lineinfile:
+        dest=/etc/hosts
+        regexp="^{{item.address}}"
+        line='{{item.address}} {{item.name}}'
+        state=present
+     with_items:
+        - name: "{{ new_vm_name }}"
+          address: "{{ new_vm_ip }}"
+     delegate_to: "{{ new_vm_dns }}"
+
+   - name: Restart DNS
+     systemd: state=restarted name=dnsmasq
+     delegate_to: "{{ new_vm_dns }}"
+
+   - name: Install epel
+     yum: name=epel-release state=latest
+     delegate_to: "{{ new_vm_ip }}"
+
+   - name: Install ovirt guest tools
+     yum: name=ovirt-guest-agent-common state=latest
+     delegate_to: "{{ new_vm_ip }}"
+     
+   - name: Start ovirt guest tools
+     systemd: state=started name=ovirt-guest-agent
+     delegate_to: "{{ new_vm_ip }}"
+     
+
+  post_tasks:
+    - name: Logout from oVirt
+      ovirt_auth:
+        state: absent
+        ovirt_auth: "{{ ovirt_auth }}"
+      tags:
+        - always
+
+  handlers:
+    - name: Restart Login Service
+      systemd: state=restarted name=getty@tty1
+      delegate_to: "{{ new_vm_ip }}"
