@@ -10,7 +10,7 @@
   vars:
     new_vm_name: cent2.labmad.redhat.com
     new_vm_mem: 512MiB
-    new_vm_ip: "10.32.170.82"
+    new_vm_ip: "10.32.170.152"
     new_vm_msk: "255.255.255.0"
     new_vm_gw: "10.32.170.254"
     new_vm_dns: "10.32.170.50"
