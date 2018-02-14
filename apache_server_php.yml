@@ -29,8 +29,8 @@
         name: php
         state: latest      
         
-    - name: 
-      file: Changing perm of index.php
+    - name: Changing perm of index.php
+      file: 
         dest=/var/www/html/index.php
         mode=u+x 
      
@@ -39,4 +39,11 @@
         dest: /var/www/html/index.php
         create: yes
         content: |
-          Welcome to 
+          <html>
+          <head>
+          <title>Welcome to {{ ansible_hostname }}</title>
+          </head>
+          <body>
+          </body>
+          </html>
+
