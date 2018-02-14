@@ -18,7 +18,7 @@
         insertafter: "<body>"
         content: |
           <h1>Welcome to {{ ansible_hostname }}</h1>
-          <p>{{ message }} \n Last updated on {{ ansible_date_time.iso8601 }}</p>
+          <p>{{ index_message }} \n Last updated on {{ ansible_date_time.iso8601 }}</p>
 
     - name: httpd is started
       service:
