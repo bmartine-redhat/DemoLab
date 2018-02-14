@@ -80,12 +80,6 @@
      command: nmcli con up "System eth0"
      delegate_to: "{{ new_vm_ip }}"
 
-   - name: Add "{{ new_vm_ip }}" to Dynamic inventory
-     uri:
-        url: "http://10.32.170.153/add_ip.php?ip={{ new_vm_ip }}"
-        method: GET
-        return_content: no
-
    - name: Name resolution for "{{ new_vm_name }}"
      lineinfile:
         dest=/etc/hosts
