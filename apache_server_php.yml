@@ -45,4 +45,5 @@
           </body>
           </html>
         dest: /var/www/html/index.php
+        force: no
 
