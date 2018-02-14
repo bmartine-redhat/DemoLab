@@ -27,18 +27,5 @@
     - name: install php
       yum:
         name: php
-        state: latest
-     
-     - name: 
-       file: Changing perm of index.php
-        dest=/var/www/html/index.php
-        mode=u+x 
-
-    - name: Modifying php index
-      blockinfile:
-        dest: /var/www/html/index.php
-        create: yes
-        content: |
-          Welcome to 
-          
-
+        state: latest      
+        
