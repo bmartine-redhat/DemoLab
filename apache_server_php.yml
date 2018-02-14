@@ -40,12 +40,6 @@
         dest: /var/www/html/index.php
         create: yes
         content: |
-          <html>
-          <head>
-          <title>Welcome to {{ ansible_hostname }}</title>
-          </head>
-          <body>
-          </body>
-          </html>
+          Welcome to 
           
 
