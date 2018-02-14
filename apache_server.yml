@@ -21,7 +21,7 @@
           <img src={{ index_image }}>
           <h1>Welcome to {{ ansible_hostname }}</h1>
           <p>{{ index_message }} </p>
-          <p>Last updated on {{ ansible_date_time.iso8601 }}</p>
+          <p>Last updated on {{ ansible_date_time}}</p>
 
     - name: httpd is started
       service:
