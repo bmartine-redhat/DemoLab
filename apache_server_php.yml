@@ -29,3 +29,7 @@
         name: php
         state: latest      
         
+    - name: 
+      file: Changing perm of index.php
+        dest=/var/www/html/index.php
+        mode=u+x 
