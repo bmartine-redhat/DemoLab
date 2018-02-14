@@ -41,6 +41,7 @@
           <body>
           </body>
           </html>
+          
      - name: 
        file: Changing perm of index.php
         dest=/var/www/html/index.php
