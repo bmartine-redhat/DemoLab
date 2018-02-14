@@ -28,12 +28,7 @@
       yum:
         name: php
         state: latest      
-        
-    - name: Changing perm of index.php
-      file: 
-        dest=/var/www/html/index.php
-        mode=u+x 
-     
+           
     - name: Modifying php index
       copy:
         content: "
@@ -46,4 +41,15 @@
           </html>"
         dest: /var/www/html/index.php
         force: no
+        
+    - name: Changing perm of index.php
+      file: 
+        dest=/var/www/html/index.php
+        mode=u+x 
+      
+    - name: httpd is started
+      service:  
+        name: httpd
+        state: restarted
+    
 
