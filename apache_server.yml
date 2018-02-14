@@ -9,9 +9,11 @@
         state: present
 
     - name: correct index.html is present
-      copy:
-        src: files/index.html
+      blockinfile:
         dest: /var/www/html/index.html
+        create: yes
+        block: |
+          wellcome!
 
     - name: httpd is started
       service:
