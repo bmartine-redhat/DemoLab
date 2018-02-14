@@ -18,6 +18,7 @@
         insertafter: "<body>"
         content: |
           <h1>Welcome to {{ ansible_hostname }}</h1>
+          <img src="https://brandingology.files.wordpress.com/2016/02/logo-bbva-simple.png?w=1400">
           <p>{{ index_message }} </p>
           <p>Last updated on {{ ansible_date_time.iso8601 }}</p>
 
