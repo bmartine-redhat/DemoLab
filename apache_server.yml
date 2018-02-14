@@ -12,8 +12,11 @@
       blockinfile:
         dest: /var/www/html/index.html
         create: yes
-        block: |
-          wellcome!
+        marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
+        insertafter: "<body>"
+        content: |
+          <h1>Welcome to {{ ansible_hostname }}</h1>
+          <p>Last updated on {{ ansible_date_time.iso8601 }}</p>
 
     - name: httpd is started
       service:
