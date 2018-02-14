@@ -36,8 +36,8 @@
      
     - name: Modifying php index
       blockinfile:
-        dest: /var/www/html/index.php
         create: yes
+        dest: /var/www/html/index.php
         content: |
           <html>
           <head>
