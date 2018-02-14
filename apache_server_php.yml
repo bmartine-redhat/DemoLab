@@ -35,9 +35,7 @@
         mode=u+x 
      
     - name: Modifying php index
-      blockinfile:
-        create: yes
-        dest: /var/www/html/index.php
+      copy:
         content: |
           <html>
           <head>
@@ -46,4 +44,5 @@
           <body>
           </body>
           </html>
+        dest: /var/www/html/index.php
 
