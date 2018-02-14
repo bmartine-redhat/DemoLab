@@ -3,6 +3,7 @@
   hosts: all
   vars:
     index_message: "This is your new apache server"
+    index_image: ""
 
   tasks:
     - name: httpd package is present
@@ -17,8 +18,8 @@
         marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
         insertafter: "<body>"
         content: |
+          <img src={{ index_image }}>
           <h1>Welcome to {{ ansible_hostname }}</h1>
-          <img src="https://brandingology.files.wordpress.com/2016/02/logo-bbva-simple.png?w=1400">
           <p>{{ index_message }} </p>
           <p>Last updated on {{ ansible_date_time.iso8601 }}</p>
 
