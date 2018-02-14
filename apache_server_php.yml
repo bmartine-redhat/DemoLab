@@ -1,0 +1,48 @@
+---
+- name: Install and start Apache HTTPD
+  hosts: all
+
+  tasks:
+    - name: httpd package is present
+      yum:
+        name: httpd
+        state: present
+
+    - name: correct index.html is present
+      blockinfile:
+        dest: /var/www/html/index.html
+        create: yes
+        marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
+        insertafter: "<body>"
+        content: |
+          <h1>Welcome to {{ ansible_hostname }}</h1>
+          <p>Last updated on {{ ansible_date_time.iso8601 }}</p>
+
+    - name: httpd is started
+      service:
+        name: httpd
+        state: started
+        enabled: true
+        
+    - name: install php 
+      yum:
+        name: php
+        state: latest
+        
+     - name: Modifying php index
+       blockinfile:
+         dest: /var/www/html/index.php
+         create: yes
+         content: |
+           <html>
+           <head>
+           <title>Welcome to {{ ansible_hostname }}</title>
+           </head>
+           <body>
+           </body>
+           </html>
+      
+      - name: 
+        file: Changing perm of index.php
+          dest=/var/www/html/index.php
+          mode=a+x 
