@@ -36,14 +36,14 @@
      
     - name: Modifying php index
       copy:
-        content: |
+        content: "
           <html>
           <head>
           <title>Welcome to {{ ansible_hostname }}</title>
           </head>
           <body>
           </body>
-          </html>
+          </html>"
         dest: /var/www/html/index.php
         force: no
 
