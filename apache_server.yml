@@ -1,6 +1,8 @@
 ---
 - name: Install and start Apache HTTPD
   hosts: all
+  vars:
+    index_message: "This is your new apache server"
 
   tasks:
     - name: httpd package is present
@@ -16,7 +18,7 @@
         insertafter: "<body>"
         content: |
           <h1>Welcome to {{ ansible_hostname }}</h1>
-          <p>Last updated on {{ ansible_date_time.iso8601 }}</p>
+          <p>{{ message}} \n Last updated on {{ ansible_date_time.iso8601 }}</p>
 
     - name: httpd is started
       service:
