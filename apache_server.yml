@@ -21,5 +21,5 @@
     - name: httpd is started
       service:
         name: httpd
-        state: started
+        state: restarted
         enabled: true
