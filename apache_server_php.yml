@@ -24,25 +24,24 @@
         state: started
         enabled: true
         
-    - name: install php 
+    - name: install php
       yum:
         name: php
         state: latest
-        
-     - name: Modifying php index
-       blockinfile:
-         dest: /var/www/html/index.php
-         create: yes
-         content: |
-           <html>
-           <head>
-           <title>Welcome to {{ ansible_hostname }}</title>
-           </head>
-           <body>
-           </body>
-           </html>
       
-      - name: 
-        file: Changing perm of index.php
-          dest=/var/www/html/index.php
-          mode=a+x 
+    - name: Modifying php index
+      blockinfile:
+        dest: /var/www/html/index.php
+        create: yes
+        content: |
+          <html>
+          <head>
+          <title>Welcome to {{ ansible_hostname }}</title>
+          </head>
+          <body>
+          </body>
+          </html>
+     - name: 
+       file: Changing perm of index.php
+        dest=/var/www/html/index.php
+        mode=a+x 
