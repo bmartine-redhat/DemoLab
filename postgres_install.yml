@@ -10,6 +10,9 @@
      dbpass: password
   tasks:
   
+   - name: sleep for 30 seconds to contact VM
+     wait_for: timeout=60
+  
    - name: Open PostgreSQL port in firewall
      firewalld:
        port=5432/tcp
