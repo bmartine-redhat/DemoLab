@@ -1,0 +1,11 @@
+---
+- name: Install and start Apache HTTPD
+  hosts: all
+  vars:
+    package_to_update: "firewalld"
+
+  tasks:
+    - name: httpd package is present
+      yum:
+        name: package_to_update
+        state: latest
