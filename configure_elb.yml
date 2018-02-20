@@ -1,10 +1,7 @@
 ---
-- name: Install and start Apache HTTPD
+- name: Configure elb in AWS
   hosts: all
-  vars:
-    elb_zones: "This is your new apache server"
-    index_image: ""
-
+  
   tasks:
     - name: configure elb 
         local_action:
