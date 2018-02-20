@@ -1,15 +1,18 @@
 ---
 - name: Configure elb in AWS
   hosts: all
+  vars:
+    elb_name: "new_elb"
+    elb_zone: ""
   
   tasks:
     - name: configure elb 
         local_action:
           module: ec2_elb_lb
-          name: "test-please-delete"
+          name: {{ elb_name }}
           state: present
-          #zones:      
-          #  - us-east-1d
+          zones:      
+            - {{elb_zone}}
           listeners:
             - protocol: http
               load_balancer_port: 80
