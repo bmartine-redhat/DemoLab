@@ -1,1 +1,9 @@
-
+---
+- name: prueba set stats 1
+  hosts: localhost
+  
+  tasks:  
+    - name:"1 2 3 probando"
+      set_stats:
+        data:
+          prueba_results: "superado!!"
