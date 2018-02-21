@@ -4,7 +4,7 @@
   tasks:
     - name: "Get test results from the web"
       uri:
-        url: "{{ integration_results_url }}"
+        url: "{{ prueba_results }}"
         return_content: true
       register: results
 
