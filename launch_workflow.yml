@@ -1,0 +1,18 @@
+---
+- hosts: ansible-tower
+  connection: local
+  ansible_tower_ip: 130.211.83.100
+  workflow_job_template_id:12
+  tasks:
+    - name: Job Template to launch a Workflow Job Template (as a workaround, waiting for CloudForms 4.5)
+      uri:
+        url: https://{{ ansible_tower_ip }}/api/v1/workflow_job_templates/{{ workflow_job_template_id }}/launch/
+        method: POST
+        user: cloudforms
+        password: password
+        body:
+          extra_vars: "launched_from: CloudForms"
+        body_format: json
+        validate_certs: False
+        HEADER_Content-Type: "application/json"
+        status_code: 200, 201
