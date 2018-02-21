@@ -3,7 +3,7 @@
   hosts: localhost
   
   tasks:  
-    - name:"1 2 3 probando"
+    - name: 1 2 3 probando
       set_stats:
         data:
           prueba_results: "superado!!"
