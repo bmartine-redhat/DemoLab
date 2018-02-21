@@ -6,7 +6,7 @@
   vars:
     elb_name: "OXelb"
     elb_region: "eu-west-1"
-    elb_zone: "eu-west-1b"
+    elb_subnet: "subnet-f4a75e92"
 
   
   tasks:
@@ -18,8 +18,8 @@
         region: "{{ elb_region }}"
         instance_ids: 
           - "{{ ec2_instance_name }}"
-        zones: 
-          - "{{ elb_zone }}"
+        subnets: 
+          - "{{ elb_subnet }}"
         listeners:
           - protocol: http
             load_balancer_port: 80
