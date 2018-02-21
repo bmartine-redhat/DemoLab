@@ -10,8 +10,8 @@
       uri:
         url: https://{{ ansible_tower_ip }}/api/v1/workflow_job_templates/{{ workflow_job_template_id }}/launch/
         method: POST
-        user: cloudforms
-        password: password
+        user: admin
+        password: smartvm
         body:
           extra_vars: "launched_from: CloudForms"
         body_format: json
