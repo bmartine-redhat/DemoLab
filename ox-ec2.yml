@@ -1,0 +1,50 @@
+---
+- name: Create ox-apache1 instance
+  hosts: localhost
+  gather_facts: False
+  vars:
+    keypair: MACNACHO
+    instance_type: t2.micro
+    security_group: default
+    image: ami-d74be5b8
+    region: eu-central-1
+
+  tasks:
+    - name: Launch ox-apache1 instance
+      ec2:
+        key_name: "{{ keypair }}"
+        group: "{{ security_group }}"
+        instance_type: "{{ instance_type }}"
+        image: "{{ image }}"
+        region: "{{ region }}"
+        wait: true
+        exact_count: 1
+        count_tag:
+           Name: ox-apache1
+        instance_tags:
+           Name: ox-apache1
+      register: ec2
+
+    - debug:
+        var: ec2.instances[0].id
+
+    - meta: end_play
+
+    - name: Set hostname
+      hostname:
+        name: "{{ ox-apache1.ox.local }}"
+
+    - name: Add new instance to host group
+      add_host:
+        hostname: "{{ item.public_ip }}"
+        groupname: idm-srv1
+      with_items: "{{ ec2.instances }}"
+
+    - name: Wait for SSH to come up
+      wait_for:
+        host: "{{ item.public_dns_name }}"
+        port: 22
+        delay: 60
+        timeout: 320
+        state: started
+      with_items: "{{ ec2.instances }}"
