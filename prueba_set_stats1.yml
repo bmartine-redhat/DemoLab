@@ -1,6 +1,6 @@
 ---
 
-- name: Add IP in CMDB 
+- name: prueba set_stats 1 
   hosts: localhost
   tasks:
     - name: "Artifact integration test results to the web"
