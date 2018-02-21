@@ -1,8 +1,10 @@
 ---
 - hosts: ansible-tower
   connection: local
-  ansible_tower_ip: 130.211.83.100
-  workflow_job_template_id:12
+  vars:
+    ansible_tower_ip: 130.211.83.100
+    workflow_job_template_id:29
+    
   tasks:
     - name: Job Template to launch a Workflow Job Template (as a workaround, waiting for CloudForms 4.5)
       uri:
