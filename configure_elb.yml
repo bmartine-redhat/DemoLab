@@ -1,27 +1,35 @@
 ---
 - name: Configure elb in AWS
   hosts: all
+  gather_facts: False
+
   vars:
-    elb_name: "new_elb"
-    elb_zone: ""
+    elb_name: "OXelb"
+    elb_region: "eu-central-1"
+    elb_zone: "eu-central-1b"
+    instance_id: "i-07d4f96ef92af2088"
+
   
   tasks:
     - name: configure elb 
-        local_action:
-          module: ec2_elb_lb
-          name: {{ elb_name }}
-          state: present
-          zones:      
-            - {{elb_zone}}
-          listeners:
-            - protocol: http
-              load_balancer_port: 80
-              instance_port: 80
-          health_check:
-            ping_protocol: http # options are http, https, ssl, tcp
-            ping_port: 80
-            ping_path: "/index.html" # not required for tcp or ssl
-            response_timeout: 5 # seconds
-            interval: 30 # seconds
-            unhealthy_threshold: 2
-            healthy_threshold: 10
+      local_action:
+        module: ec2_elb_lb
+        name: "{{ elb_name }}"
+        state: present
+        region: "{{ elb_region }}"
+        instance_ids: 
+          - "{{ instance_id }}"
+        zones: 
+          - "{{ elb_zone }}"
+        listeners:
+          - protocol: http
+            load_balancer_port: 80
+            instance_port: 80
+        health_check:
+          ping_protocol: http # options are http, https, ssl, tcp
+          ping_port: 80
+          ping_path: "/index.html" # not required for tcp or ssl
+          response_timeout: 5 # seconds
+          interval: 30 # seconds
+          unhealthy_threshold: 2
+          healthy_threshold: 10
