@@ -8,7 +8,7 @@
     security_group: default
     image: ami-bb9a6bc2
     region: eu-west-1
-    subnet_id: subnet-f4a75e92
+    subnet_id: subnet-6df89d30
 
   tasks:
     - name: Launch ox-apache1 instance
