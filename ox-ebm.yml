@@ -6,7 +6,7 @@
   vars:
     elb_name: "OXelb"
     elb_region: "eu-west-1"
-    elb_subnet: "subnet-f4a75e92"
+    elb_subnet: "subnet-6df89d30"
 
   
   tasks:
