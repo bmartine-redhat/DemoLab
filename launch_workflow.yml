@@ -1,5 +1,5 @@
 ---
-- hosts: ansible-tower
+- hosts: localhost
   connection: local
   vars:
     ansible_tower_ip: 130.211.83.100
