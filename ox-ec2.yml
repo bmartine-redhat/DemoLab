@@ -6,8 +6,8 @@
     keypair: mykey
     instance_type: t2.micro
     security_group: default
-    image: ami-bb9a6bc2
-    region: eu-west-1
+    image: ami-c998b6b2
+    region: us-east-1
     subnet_id: subnet-6df89d30
 
   tasks:
