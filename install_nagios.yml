@@ -33,4 +33,5 @@
     - name: set SELinux permissive mode
       selinux:
         state: disabled
+        reboot_required: false
       
