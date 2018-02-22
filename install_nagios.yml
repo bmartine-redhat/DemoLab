@@ -15,7 +15,13 @@
         - nrpe
         - nagios-plugins-all
         - openssl
+        - http
     
+   - name: start nagios service
+      service:
+        name: nagios
+        state: started
+        enabled: yes  
     - name: start nagios service
       service:
         name: nagios
