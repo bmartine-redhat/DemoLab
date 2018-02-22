@@ -21,10 +21,10 @@
       service:
         name: httpd
         state: restarted
-        enabled: true 
-        
+        enabled: true
+    
     - name: start nagios service
       service:
-        name: nagios
+        name: nagios  
         state: started
         enabled: true  
