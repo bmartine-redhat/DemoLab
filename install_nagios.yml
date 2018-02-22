@@ -23,6 +23,12 @@
         name: nagios  
         state: started
         enabled: true
+        
+    - name: start nrpe service
+      service:
+        name: nrpe
+        state: started
+        enabled: true
    
     - name: start httpd service
       service:
