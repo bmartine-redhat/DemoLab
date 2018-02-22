@@ -16,15 +16,15 @@
         - nagios-plugins-all
         - openssl
         - httpd
-    
-   - name: start nagios service
+        
+    - name: start httpd service
       service:
         name: httpd
         state: restarted
-        enabled: yes  
+        enabled: true 
         
     - name: start nagios service
       service:
         name: nagios
         state: started
-        enabled: yes  
+        enabled: true  
