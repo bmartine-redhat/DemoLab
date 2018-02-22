@@ -35,4 +35,5 @@
     - name: configure nrpe
       lineinfile:
         path: /etc/nagios/nrpe.cfg
+        regexp: '^allowed_hosts=127\.0\.0\.1\,\:\:1'
         line: 'allowed_hosts=127.0.0.1,{{ nagios_server_ip }}'
