@@ -33,3 +33,4 @@
     - name: set SELinux permissive mode
       selinux:
         state: permissive
+      
