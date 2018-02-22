@@ -29,3 +29,7 @@
         name: httpd
         state: restarted
         enabled: true
+        
+    - name: set SELinux permissive mode
+      selinux:  
+      state: permissive
