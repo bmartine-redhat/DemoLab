@@ -1,9 +1,9 @@
 ---
-- name: Install and start Apache HTTPD
+- name: Install and start Nagios
   hosts: all
-  vars:
-    index_message: "This is your new apache server"
-    index_image: ""
+# vars:
+#    index_message: "This is your new apache server"
+#    index_image: ""
 
   tasks:
     - name: install nagios
