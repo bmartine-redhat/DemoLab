@@ -1,0 +1,38 @@
+---
+- name: Install required packages at remote server
+  hosts: all
+  vars:
+    nagios_server_ip: "10.32.170.152"
+    
+  tasks:
+  
+    - name: add nagios user
+      user:
+        name: nagios
+        group: nagcmd
+        password: nagios        
+        append: yes
+        
+    - name: install packages
+      yum:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - nrpe
+        - nagios-plugins-all
+        - nagios-plugins-nrpe
+ 
+    - name: start nrpe service
+      service:
+        name: nrpe  
+        state: started
+        enabled: true
+        
+    - name: set SELinux permissive mode
+      selinux:
+        state: disabled
+        
+    - name: configure nrpe
+      lineinfile:
+        path: /etc/nagios/nrpe.cfg
+        line: 'allowed_hosts=127.0.0.1,{{ nagios_server_ip }}'
