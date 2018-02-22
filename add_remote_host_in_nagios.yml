@@ -1,0 +1,13 @@
+---
+- name: Add remote server in nagios config
+  hosts: all
+  vars:
+    nagios_remote_server_ip: "10.32.170.152"
+    
+  tasks:
+
+    - name: configure nrpe
+      copy:
+        dest: /etc/nagios/object/{{ item }}.cfg
+        content: |
+        
