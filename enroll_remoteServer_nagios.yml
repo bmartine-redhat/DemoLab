@@ -6,12 +6,12 @@
     
   tasks:
   
-    - name: add nagios user
-      user:
-        name: nagios
-        group: nagcmd
-        password: nagios        
-        append: yes
+  #  - name: add nagios user
+  #    user:
+  #      name: nagios
+  #      group: nagcmd
+  #      password: nagios        
+  #      append: yes
         
     - name: install packages
       yum:
