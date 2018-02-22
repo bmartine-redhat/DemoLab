@@ -32,5 +32,6 @@
         
     - name: set SELinux permissive mode
       selinux:
+        policy: targeted
         state: permissive
       
