@@ -31,5 +31,5 @@
         enabled: true
         
     - name: set SELinux permissive mode
-      selinux:  
-      state: permissive
+      selinux:
+        state: permissive
