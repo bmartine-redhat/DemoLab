@@ -15,13 +15,14 @@
         - nrpe
         - nagios-plugins-all
         - openssl
-        - http
+        - httpd
     
    - name: start nagios service
       service:
-        name: nagios
-        state: started
+        name: httpd
+        state: restarted
         enabled: yes  
+        
     - name: start nagios service
       service:
         name: nagios
