@@ -1,0 +1,23 @@
+---
+- name: Install and start Apache HTTPD
+  hosts: all
+  vars:
+    index_message: "This is your new apache server"
+    index_image: ""
+
+  tasks:
+    - name: install nagios
+      yum:
+        name: {{ item }}
+        state: present
+      with_items:
+        - nagios
+        - nrpe
+        - nagios-plugins-all
+        - openssl
+    
+    - name: start nagios service
+      service:
+        name: nagios
+        state: started
+        enabled: yes  
