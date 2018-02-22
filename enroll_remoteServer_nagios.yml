@@ -28,7 +28,7 @@
         state: started
         enabled: true
         
-    - name: set SELinux permissive mode
+    - name: set SELinux 
       selinux:
         state: disabled
         
