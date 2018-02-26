@@ -10,8 +10,8 @@
 
     - name: Check hosts.cfg, services.cfg and commands.cfg files exist
       file:
-        path: /etc/nagios/objects/hosts.cfg
-        state: touch
+        path: 
+        state: present
         
     - name: Insert host in hosts.cfg file
       blockinfile:
