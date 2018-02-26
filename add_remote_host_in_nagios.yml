@@ -10,7 +10,7 @@
 
     - name: Check hosts.cfg, services.cfg and commands.cfg files exist
       file:
-        dest: /etc/nagios/objects/{{ item }}
+        dest: "/etc/nagios/objects/{{ item }}"
         state: touch
         with_items:
           hosts.cfg
