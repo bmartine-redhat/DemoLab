@@ -10,12 +10,12 @@
 
     - name: Check hosts.cfg, services.cfg and commands.cfg files exist
       file:
-        dest: "/etc/nagios/objects/{{ item }}"
+        dest: "{{ item }}"
         state: touch
         with_items:
-          hosts.cfg
-          services.cfg
-          commands.cfg
+          /etc/nagios/objects/hosts.cfg
+          /etc/nagios/objects/services.cfg
+          /etc/nagios/objects/commands.cfg
 
     - name: Insert host in hosts.cfg file
       blockinfile:
