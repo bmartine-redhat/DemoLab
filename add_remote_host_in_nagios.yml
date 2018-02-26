@@ -44,7 +44,7 @@
                   event_handler			              ansible-playbook
                   check_interval			            0.5
            }
-            
+     
      - name: Insert commands in commands.cfg file
        blockinfile:
           dest: /etc/nagios/object/commands.cfg
