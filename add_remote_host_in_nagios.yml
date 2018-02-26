@@ -30,8 +30,8 @@
     - name: Insert host in services.cfg file
       blockinfile:
         dest: /etc/nagios/object/services.cfg
-          content: |
-            define host {
+        content: |
+          define host {
                   use                             local-service
                   host_name                       {{ nagios_remote_server_id }}
                   service_description             HTTP_Ansible_Demo
@@ -39,19 +39,19 @@
                   notifications_enabled		        0
                   event_handler			              ansible-playbook
                   check_interval			            0.5
-             }
+           }
             
      - name: Insert host in services.cfg file
        blockinfile:
           dest: /etc/nagios/object/services.cfg
           content: |
             define command{
-              command_name    check_http_with_args
-              command_line    $USER1$/check_http -I $HOSTADDRESS$ -p $ARG1$ -u $ARG2$
+                  command_name    check_http_with_args
+                  command_line    $USER1$/check_http -I $HOSTADDRESS$ -p $ARG1$ -u $ARG2$
             }
             define command{
-              command_name	ansible-playbook
-              command_line	/usr/local/nagios/etc/servers/ansible-playbook.bash $SERVICESTATE$ $SERVICESTATETYPE$ $SERVICEATTEMPT$ $HOSTNAME$
+                  command_name	ansible-playbook
+                  command_line	/usr/local/nagios/etc/servers/ansible-playbook.bash $SERVICESTATE$ $SERVICESTATETYPE$ $SERVICEATTEMPT$ $HOSTNAME$
             }
             
         
