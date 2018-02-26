@@ -10,8 +10,12 @@
 
     - name: Check hosts.cfg exists
       file:
-        dest: /etc/nagios/objects/hosts.cfg
+        dest: /etc/nagios/objects/{{ item }}
         state: touch
+        with_item:
+          hosts.cfg
+          services.cfg
+          commands.cfg
 
     - name: Insert host in hosts.cfg file
       blockinfile:
@@ -41,9 +45,9 @@
                   check_interval			            0.5
            }
             
-     - name: Insert host in services.cfg file
+     - name: Insert commands in commands.cfg file
        blockinfile:
-          dest: /etc/nagios/object/services.cfg
+          dest: /etc/nagios/object/commands.cfg
           content: |
             define command{
                   command_name    check_http_with_args
