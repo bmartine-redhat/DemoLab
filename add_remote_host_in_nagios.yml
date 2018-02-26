@@ -8,19 +8,14 @@
     
   tasks:
 
-    - name: Check hosts.cfg, services.cfg and commands.cfg files exist
+    - name: Create configuration file (server_id.cfg) for the server
       file:
-        path:  "{{ item }}"
+        path: /etc/nagios/servers/"{{ nagios_remote_server_id }}".cfg
         state: touch
-      with_items:
-        - /etc/nagios/objects/hosts.cfg
-        - /etc/nagios/objects/services.cfg
-        - /etc/nagios/objects/commands.cfg
-       
         
-    - name: Insert host in hosts.cfg file
+    - name: Add information in config file
       blockinfile:
-        dest: /etc/nagios/objects/hosts.cfg
+        dest: /etc/nagios/servers/"{{ nagios_remote_server_id }}".cfg
         content: |
           define host {
                   use                             linux-server
@@ -31,34 +26,18 @@
                   notification_interval           30
                   notification_period             24x7
           }
-    
-    - name: Insert host in services.cfg file
-      blockinfile:
-        dest: /etc/nagios/objects/services.cfg
-        content: |
+
           define host {
                   use                             local-service
                   host_name                       {{ nagios_remote_server_id }}
                   service_description             HTTP_Ansible_Demo
-                  check_command			              check_http_with_args!{{ http_listen_port }}!/test.html
+                  check_command			              check_http_with_args!{{ http_listen_port }}!/index.html
                   notifications_enabled		        0
                   event_handler			              ansible-playbook
                   check_interval			            0.5
            }
-                     }
+                   
     
-    - name: Insert commands in commands.cfg file
-      blockinfile:
-        dest: /etc/nagios/objects/commands.cfg
-        content: |
-            define command{
-                  command_name    check_http_with_args
-                  command_line    $USER1$/check_http -I $HOSTADDRESS$ -p $ARG1$ -u $ARG2$
-            }
-            define command{
-                  command_name	ansible-playbook
-                  command_line	/usr/local/nagios/etc/servers/ansible-playbook.bash $SERVICESTATE$ $SERVICESTATETYPE$ $SERVICEATTEMPT$ $HOSTNAME$
-            }
-            
+ 
         
 
