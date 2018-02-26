@@ -8,6 +8,11 @@
     
   tasks:
 
+    - name: Check hosts.cfg exists
+      file:
+        dest: /etc/nagios/objects/hosts.cfg
+        state: touch
+
     - name: Insert host in hosts.cfg file
       blockinfile:
         dest: /etc/nagios/object/hosts.cfg
@@ -21,10 +26,10 @@
                   notification_interval           30
                   notification_period             24x7
           }
-                      
-     - name: Insert host in services.cfg file
-       blockinfile:
-          dest: /etc/nagios/object/services.cfg
+    
+    - name: Insert host in services.cfg file
+      blockinfile:
+        dest: /etc/nagios/object/services.cfg
           content: |
             define host {
                   use                             local-service
@@ -34,7 +39,7 @@
                   notifications_enabled		        0
                   event_handler			              ansible-playbook
                   check_interval			            0.5
-            }
+             }
             
      - name: Insert host in services.cfg file
        blockinfile:
