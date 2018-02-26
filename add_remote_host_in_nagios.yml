@@ -44,11 +44,12 @@
                   event_handler			              ansible-playbook
                   check_interval			            0.5
            }
-     
-     - name: Insert commands in commands.cfg file
-       blockinfile:
-          dest: /etc/nagios/object/commands.cfg
-          content: |
+                     }
+    
+    - name: Insert commands in commands.cfg file
+      blockinfile:
+        dest: /etc/nagios/object/commands.cfg
+        content: |
             define command{
                   command_name    check_http_with_args
                   command_line    $USER1$/check_http -I $HOSTADDRESS$ -p $ARG1$ -u $ARG2$
