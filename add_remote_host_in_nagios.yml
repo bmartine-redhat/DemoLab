@@ -20,7 +20,7 @@
         
     - name: Insert host in hosts.cfg file
       blockinfile:
-        dest: /etc/nagios/object/hosts.cfg
+        dest: /etc/nagios/objects/hosts.cfg
         content: |
           define host {
                   use                             linux-server
@@ -34,7 +34,7 @@
     
     - name: Insert host in services.cfg file
       blockinfile:
-        dest: /etc/nagios/object/services.cfg
+        dest: /etc/nagios/objects/services.cfg
         content: |
           define host {
                   use                             local-service
@@ -49,7 +49,7 @@
     
     - name: Insert commands in commands.cfg file
       blockinfile:
-        dest: /etc/nagios/object/commands.cfg
+        dest: /etc/nagios/objects/commands.cfg
         content: |
             define command{
                   command_name    check_http_with_args
