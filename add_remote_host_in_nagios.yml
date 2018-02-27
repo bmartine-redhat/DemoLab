@@ -15,7 +15,7 @@
         
     - name: Add information in config file
       blockinfile:
-        dest: /etc/nagios/servers/"{{ nagios_remote_server_id }}".cfg
+        dest: /etc/nagios/servers/{{ nagios_remote_server_id }}.cfg
         content: |
           define host {
                   use                             linux-server
@@ -31,7 +31,7 @@
                   use                             local-service
                   host_name                       {{ nagios_remote_server_id }}
                   service_description             HTTP_Ansible_Demo
-                  check_command			              check_http_with_args!{{ http_listen_port }}!/index.html
+                  check_command                   check_http_with_args!{{ http_listen_port }}!/index.html
                   notifications_enabled		        0
                   event_handler			              ansible-playbook
                   check_interval			            0.5
