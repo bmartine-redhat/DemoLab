@@ -27,7 +27,7 @@
                   notification_period             24x7
           }
 
-          define host {
+          define service {
                   use                             local-service
                   host_name                       {{ nagios_remote_server_id }}
                   service_description             HTTP_Ansible_Demo
