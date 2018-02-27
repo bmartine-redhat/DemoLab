@@ -32,9 +32,9 @@
                   host_name                       {{ nagios_remote_server_id }}
                   service_description             HTTP_Ansible_Demo
                   check_command                   check_http_with_args!{{ http_listen_port }}!/index.html
-                  notifications_enabled		        0
-                  event_handler			              ansible-playbook
-                  check_interval			            0.5
+                  notifications_enabled           0
+                  event_handler                   ansible-playbook
+                  check_interval                  0.5
            }
          
     - name: Restart nagios service
