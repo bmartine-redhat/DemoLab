@@ -10,7 +10,7 @@
 
     - name: Create configuration file (server_id.cfg) for the server
       file:
-        path: /etc/nagios/servers/"{{ nagios_remote_server_id }}".cfg
+        path: /etc/nagios/servers/{{ nagios_remote_server_id }}.cfg
         state: touch
         
     - name: Add information in config file
@@ -36,7 +36,12 @@
                   event_handler			              ansible-playbook
                   check_interval			            0.5
            }
-                   
+         
+    - name: Restart nagios service
+      service:
+        name: nagios
+        state: restarted
+        
     
  
         
