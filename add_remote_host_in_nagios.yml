@@ -2,7 +2,7 @@
 - name: Add remote server in nagios config
   hosts: all
   vars:
-    nagios_remote_server_ip: "10.32.170.152"
+    nagios_remote_server_ip: "10.32.170.159"
     nagios_remote_server_id: "server1"
     http_listen_port: "80"
     
