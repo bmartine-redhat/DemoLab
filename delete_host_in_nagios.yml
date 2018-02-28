@@ -1,0 +1,12 @@
+---
+- name: Delete host in nagios
+  hosts: all
+  vars:
+    server_name: "server
+    
+  tasks:
+
+    - name: Delete configuration file (server_id.cfg) for the server
+      file:
+        path: /etc/nagios/servers/{{ server_name }}.cfg
+        state: absent
