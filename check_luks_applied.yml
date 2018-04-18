@@ -12,5 +12,6 @@
        path: /tmp/crypttab
        state: present
        regexp: 'home*'
-       check_mode: yes
+       
+     check_mode: yes
      register: checkPartition
