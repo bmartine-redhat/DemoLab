@@ -57,7 +57,7 @@
      
    - name: Send facts to Satellite
      uri:
-       url: http://"{{ satellite_ip }}"/api/v2/hosts/facts
+       url: http://{{ satellite_ip }}/api/v2/hosts/facts
        method: POST
        user: "{{ satellite_user }}"
        password: "{{ satellite_psw }}"
