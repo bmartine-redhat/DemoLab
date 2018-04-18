@@ -21,14 +21,19 @@
        regexp: 'home*'       
      check_mode: yes
      register: checkPartition
-   
+     
+   - name: Delete any encrypted fact in /etc/rhsm/facts/encrypted.facts
+     lineinfile:
+       path: /etc/rhsm/facts/encrypted.facts
+       state: absent
+       regexp: 'encrypted*'       
+     
    - name: Add fact file encrypted.facts in /etc/rhsm/facts/ as not encypted host if needed
      lineinfile:
        path: /etc/rhsm/facts/encrypted.facts
        state: present
        create: yes
        line: {"encrypted": "no"}
-    # when: checkPartition.changed
      
    - name: Add fact file encrypted.facts in /etc/rhsm/facts/ as encypted host if that is the case
      replace:
