@@ -61,7 +61,7 @@
 
    - name: Give json format to temporary file
      replace:
-       path:/root/updated_facts_tmp.json
+       path: /root/updated_facts_tmp.json
        regexp: '{'
        replace: '{ "name": "{{ satellite_ip }}", "facts" {'
        
