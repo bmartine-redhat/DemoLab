@@ -10,6 +10,7 @@
    - name: Check wether /etc/crypttab contains "home"
      lineinfile:
        path: /etc/crypttab
+       state: absent
        regexp: 'home*'       
      #check_mode: yes
      register: checkPartition
