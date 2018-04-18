@@ -42,13 +42,31 @@
        path: /etc/rhsm/facts/encrypted.facts
        state: present
        create: yes
+       backup: yes
        line: {"encrypted": "no"}
+       
+   
+   - name: Add fact file encrypted.facts in /var/lib/rhsm/facts/facts.json as not encrypted host if needed
+     replace:
+       path: /var/lib/rhsm/facts/facts.json
+       regexp: '}'
+       backup: yes
+       replace: ', "encrypted": "no"}'
      
-   - name: Add fact file encrypted.facts in /etc/rhsm/facts/ as encypted host if that is the case
+   - name: Add fact file encrypted.facts in /etc/rhsm/facts/ as encrypted host if that is the case
      replace:
        path: /etc/rhsm/facts/encrypted.facts
        regexp: 'no'
        replace: 'yes'
+       backup: yes
+     when: (homeEncrypted.changed and swapEncrypted)
+    
+   - name: Add fact file encrypted.facts in /var/lib/rhsm/facts/facts.json as encypted host if that is the case
+     replace:
+       path: /var/lib/rhsm/facts/facts.json 
+       regexp: '"encrypted": no"'
+       replace: '"encrypted": yes"'
+       backup: yes
      when: (homeEncrypted.changed and swapEncrypted)
      
    - name: Format facts to be sent to Satellite
@@ -56,7 +74,7 @@
      register: data
         
    - name: Send facts to Satellite
-     command: curl -X POST -u admin:redhat01 -k -H "Content-Type:application/json" -d {{ data }} https://{{ satellite_ip }}/api/v2/hosts/facts
+     command: curl -X POST -u {{ satellite_user }}:{{ satellite_psw }} -k -H "Content-Type:application/json" -d {{ data }} https://{{ satellite_ip }}/api/v2/hosts/facts
    #  uri:
    #    url: http://{{ satellite_ip }}/api/v2/hosts/facts
    #    method: POST
