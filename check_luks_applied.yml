@@ -54,18 +54,19 @@
    - name: Format facts to be sent to Satellite
      shell: cat "/var/lib/rhsm/facts/facts.json"
      register: data
-     
+        
    - name: Send facts to Satellite
-     uri:
-       url: http://{{ satellite_ip }}/api/v2/hosts/facts
-       method: POST
-       user: "{{ satellite_user }}"
-       password: "{{ satellite_psw }}"
-       body: data
-       return_content: no
-       validate_certs: no
-       HEADER_Content-Type: application/json
-       HEADER_Accept: :application/json,version=2
+     command: curl -X POST -u admin:redhat01 -k -H "Content-Type:application/json" -d {{ data }} https://{{ satellite_ip }}/api/v2/hosts/facts
+   #  uri:
+   #    url: http://{{ satellite_ip }}/api/v2/hosts/facts
+   #    method: POST
+   #    user: "{{ satellite_user }}"
+   #    password: "{{ satellite_psw }}"
+   #    body: data
+   #    return_content: no
+   #    validate_certs: no
+   #    HEADER_Content-Type: application/json
+   #    HEADER_Accept: :application/json,version=2
        
        
          
