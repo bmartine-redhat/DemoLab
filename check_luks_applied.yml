@@ -62,7 +62,6 @@
        user: "{{ satellite_user }}"
        password: "{{ satellite_psw }}"
        body: data
-       body_format: json
        return_content: no
        validate_certs: no
        HEADER_Content-Type: application/json
