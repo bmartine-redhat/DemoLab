@@ -8,6 +8,7 @@
 
   tasks:
    - name: Check /etc/crypttab contains existence
+     file:
        path: /etc/crypttab
        state: absent     
      check_mode: yes
