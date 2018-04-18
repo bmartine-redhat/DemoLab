@@ -63,7 +63,8 @@
      replace:
        path: /root/updated_facts_tmp.json
        regexp: '\{'
-       replace: '{ "name": "{{ satellite_ip }}", "facts" {'
+       replace: '{ "name": "{{ satellitetestbms.labmad.redhat.com }}", "facts" {'
+       #replace: '{ "name": "{{ satellite_ip }}", "facts" {'
        
    - name: Add fact as not encrypted to temporary file
      replace:
