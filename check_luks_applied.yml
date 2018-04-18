@@ -68,7 +68,7 @@
      replace:
        path: /root/updated_facts_tmp.json
        regexp: '\{'
-       replace: '{"name": "{{ host_name }}", "facts": {'
+       replace: '{"name": "{{ inventory_hostname }}", "facts": {'
        
    - name: Add fact as not encrypted to temporary file
      replace:
