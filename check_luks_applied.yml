@@ -49,7 +49,7 @@
        path: /etc/rhsm/facts/encrypted.facts
        regexp: 'no'
        replace: 'yes'
-     when: checkPartition.changed and swapEncrypted
+     when: (checkPartition.changed and swapEncrypted)
      
    - name: Send facts to Satellite
      uri:
