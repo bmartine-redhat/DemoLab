@@ -65,6 +65,8 @@
        body_format: json
        return_content: no
        validate_certs: no
+       HEADER_Content-Type: application/json
+       HEADER_Accept: :application/json,version=2
        
        
          
