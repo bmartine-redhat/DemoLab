@@ -1,0 +1,17 @@
+---
+- name: Luks application check 
+  user: root
+  hosts: all
+  vars:
+     vm_origin: centos7-template
+     vm_destiny: clonedVM
+
+  tasks:
+   - name: Check wether /etc/crypttab contains "home"
+     lineinfile:
+       path: /tmp/crypttab
+       state: present
+       regexp: 'home*'
+       check_mode: yes
+     register: checkPartition
+      
