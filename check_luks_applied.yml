@@ -65,11 +65,12 @@
 #     register: host_name 
 
    - name: Give json format to temporary file
-     blockinfile:
+     lineinfile:
        dest: /root/updated_facts_tmp.json
        create: yes
+       state: present
        #      regexp: '\{'
-       block: '{"name": "{{ inventory_hostname }}", "facts": {"encrypted": "no"}}'
+       line: '{\"name\": \"{{ inventory_hostname }}\", \"facts\": {\"encrypted\": \"no\"}}'
        
 #   - name: Add fact as not encrypted to temporary file
 #     replace:
