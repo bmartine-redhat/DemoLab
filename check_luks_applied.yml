@@ -44,15 +44,7 @@
        create: yes
        backup: yes
        line: {"encrypted": "no"}
-       
-   
-   - name: Add fact file encrypted.facts in /var/lib/rhsm/facts/facts.json as not encrypted host if needed
-     replace:
-       path: /var/lib/rhsm/facts/facts.json
-       regexp: '}'
-       backup: yes
-       replace: ', "encrypted": "no"}'
-     
+          
    - name: Add fact file encrypted.facts in /etc/rhsm/facts/ as encrypted host if that is the case
      replace:
        path: /etc/rhsm/facts/encrypted.facts
@@ -61,20 +53,34 @@
        backup: yes
      when: (homeEncrypted.changed and swapEncrypted)
     
+   - name: Copy default system facts file /var/lib/rhsm/facts/facts.json to a temporary file
+     copy:
+       dest: /root/updated_facts_tmp.json
+       src: /var/lib/rhsm/facts/facts.json
+
+   - name: Add fact as not encrypted to temporary file
+     replace:
+       path: /root/updated_facts_tmp.json
+       regexp: '}'
+       backup: yes
+       replace: ', "encrypted": "no"}'
+       
    - name: Add fact file encrypted.facts in /var/lib/rhsm/facts/facts.json as encypted host if that is the case
      replace:
-       path: /var/lib/rhsm/facts/facts.json 
+       path: /root/updated_facts_tmp.json 
        regexp: '"encrypted": no"'
        replace: '"encrypted": yes"'
        backup: yes
      when: (homeEncrypted.changed and swapEncrypted)
      
    - name: Format facts to be sent to Satellite
-     shell: cat "/var/lib/rhsm/facts/facts.json"
+     shell: cat "/root/updated_facts_tmp.json"
      register: data
         
    - name: Send facts to Satellite
      command: curl -X POST -u {{ satellite_user }}:{{ satellite_psw }} -k -H "Content-Type:application/json" -d {{ data }} https://{{ satellite_ip }}/api/v2/hosts/facts
+     
+     
    #  uri:
    #    url: http://{{ satellite_ip }}/api/v2/hosts/facts
    #    method: POST
