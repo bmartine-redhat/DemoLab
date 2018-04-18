@@ -70,7 +70,7 @@
        create: yes
        state: present
        #      regexp: '\{'
-       line: '{\"name\": \"{{ inventory_hostname }}\", \"facts\": {\"encrypted\": \"no\"}}'
+       line: '{"name": "{{ inventory_hostname }}", "facts": {"encrypted": "no"}}'
        
 #   - name: Add fact as not encrypted to temporary file
 #     replace:
@@ -81,9 +81,8 @@
    - name: Add fact file encrypted.facts in /var/lib/rhsm/facts/facts.json as encypted host if that is the case
      replace:
        path: /root/updated_facts_tmp.json 
-       regexp: '"encrypted": no"'
-       replace: '"encrypted": yes"'
-       backup: yes
+       regexp: '"encrypted": "no"'
+       replace: '"encrypted": "yes"'
      when: (homeEncrypted.changed and swapEncrypted)
                
    - name: Send facts to Satellite
