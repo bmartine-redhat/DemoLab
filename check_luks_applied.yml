@@ -51,13 +51,17 @@
        replace: 'yes'
      when: (homeEncrypted.changed and swapEncrypted)
      
+   - name: Format facts to be sent to Satellite
+     shell: cat "/var/lib/rhsm/facts/facts.json"
+     register: data
+     
    - name: Send facts to Satellite
      uri:
        url: http://"{{ satellite_ip }}"/api/v2/hosts/facts
        method: POST
        user: "{{ satellite_user }}"
        password: "{{ satellite_psw }}"
-       body: "{{ lookup('file','/var/lib/rhsm/facts/facts.json') }}"
+       body: data
        body_format: json
        return_content: no
        validate_certs: no
