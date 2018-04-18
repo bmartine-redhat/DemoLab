@@ -62,7 +62,7 @@
    - name: Give json format to temporary file
      replace:
        path: /root/updated_facts_tmp.json
-       regexp: '{'
+       regexp: '\{'
        replace: '{ "name": "{{ satellite_ip }}", "facts" {'
        
    - name: Add fact as not encrypted to temporary file
