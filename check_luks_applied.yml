@@ -3,8 +3,9 @@
   user: root
   hosts: all
   vars:
-     vm_origin: centos7-template
-     vm_destiny: clonedVM
+     satellite_ip: 10.32.170.160
+     satellite_user: admin
+     satellite_psw: redhat01
 
   tasks:
  #  - name: Check /etc/crypttab contains existence
@@ -20,7 +21,15 @@
        state: absent
        regexp: 'home*'       
      check_mode: yes
-     register: checkPartition
+     register: homeEncrypted
+   
+   - name: Check wether /etc/crypttab contains "home"
+     lineinfile:
+       path: /etc/crypttab
+       state: absent
+       regexp: 'swap*'       
+     check_mode: yes
+     register: swapEncrypted
      
    - name: Delete any encrypted fact in /etc/rhsm/facts/encrypted.facts
      lineinfile:
@@ -40,6 +49,18 @@
        path: /etc/rhsm/facts/encrypted.facts
        regexp: 'no'
        replace: 'yes'
-     when: checkPartition.changed
-      
+     when: checkPartition.changed and swapEncrypted
+     
+   - name: Send facts to Satellite
+     uri:
+       url: http://"{{ satellite_ip }}"/api/v2/hosts/facts
+       method: POST
+       user: "{{ satellite_user }}"
+       password: "{{ satellite_psw }}"
+       body: "{{ lookup('file','/var/lib/rhsm/facts/facts.json' }}"
+       body_format: json
+       return_content: no
+       validate_certs: no
+       
+       
          
