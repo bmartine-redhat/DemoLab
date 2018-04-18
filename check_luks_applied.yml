@@ -79,7 +79,8 @@
      register: data
            
    - name: Send facts to Satellite
-     command: 'curl -X POST -u {{ satellite_user }}:{{ satellite_psw }} -k -H "Content-Type:application/json" -d @updated_facts_tmp.json https://{{ satellite_ip }}/api/v2/hosts/facts'
+     command: ' curl -X POST -u admin:redhat01 -k -H "Content-Type:application/json" -d @updated_facts_tmp.json.json https://10.32.170.160/api/v2/hosts/facts'
+     #command: 'curl -X POST -u {{ satellite_user }}:{{ satellite_psw }} -k -H "Content-Type:application/json" -d @updated_facts_tmp.json https://{{ satellite_ip }}/api/v2/hosts/facts'
      ignore_errors: yes
      
      
