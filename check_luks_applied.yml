@@ -69,7 +69,7 @@
      replace:
        path: /root/updated_facts_tmp.json
        regexp: '}'
-       replace: ', "encrypted": "no"}'
+       replace: ', "encrypted": "no"}}'
        
    - name: Add fact file encrypted.facts in /var/lib/rhsm/facts/facts.json as encypted host if that is the case
      replace:
@@ -84,7 +84,7 @@
      register: data
            
    - name: Send facts to Satellite
-     command: ' curl -X POST -u admin:redhat01 -k -H "Content-Type:application/json" -d @updated_facts_tmp.json https://10.32.170.160/api/v2/hosts/facts'
+     command: 'curl -X POST -u admin:redhat01 -k -H "Content-Type:application/json" -d @updated_facts_tmp.json https://10.32.170.160/api/v2/hosts/facts'
      #command: 'curl -X POST -u {{ satellite_user }}:{{ satellite_psw }} -k -H "Content-Type:application/json" -d @updated_facts_tmp.json https://{{ satellite_ip }}/api/v2/hosts/facts'
      ignore_errors: yes
      
