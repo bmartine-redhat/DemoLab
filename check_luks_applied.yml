@@ -58,13 +58,16 @@
        src: /var/lib/rhsm/facts/facts.json
        dest: /root/updated_facts_tmp.json
        remote_src: yes
+       
+   - name: Fetch hostname
+     shell: cat "/etc/hostname"
+     register: hostname 
 
    - name: Give json format to temporary file
      replace:
        path: /root/updated_facts_tmp.json
        regexp: '\{'
-       replace: '{"name": "satellitetestbms.labmad.redhat.com", "facts": {'
-       #replace: '{ "name": "{{ satellite_ip }}", "facts" {'
+       replace: '{"name": "{{ hostname }}", "facts": {'
        
    - name: Add fact as not encrypted to temporary file
      replace:
@@ -79,15 +82,11 @@
        replace: '"encrypted": yes"'
        backup: yes
      when: (homeEncrypted.changed and swapEncrypted)
-     
-   - name: Format facts to be sent to Satellite
-     shell: cat "/root/updated_facts_tmp.json"
-     register: data
-           
-   - name: Send facts to Satellite
+               
+ #  - name: Send facts to Satellite
      #command: 'curl -X POST -u admin:redhat01 -k -H "Content-Type:application/json" -d @updated_facts_tmp.json https://10.32.170.160/api/v2/hosts/facts'
-     command: 'curl -X POST -u {{ satellite_user }}:{{ satellite_psw }} -k -H "Content-Type:application/json" -d @updated_facts_tmp.json https://{{ satellite_ip }}/api/v2/hosts/facts'
-     ignore_errors: yes
+ #    command: 'curl -X POST -u {{ satellite_user }}:{{ satellite_psw }} -k -H "Content-Type:application/json" -d @updated_facts_tmp.json https://{{ satellite_ip }}/api/v2/hosts/facts'
+  
      
      
    #  uri:
