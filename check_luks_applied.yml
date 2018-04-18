@@ -7,12 +7,12 @@
      vm_destiny: clonedVM
 
   tasks:
-   - name: Check /etc/crypttab contains existence
-     file:
-       path: /etc/crypttab
-       state: absent     
-     check_mode: yes
-     register: checkFile
+ #  - name: Check /etc/crypttab contains existence
+  #   file:
+  #     path: /etc/crypttab
+  #     state: absent     
+  #   check_mode: yes
+  #   register: checkFile
      
    - name: Check wether /etc/crypttab contains "home"
      lineinfile:
@@ -21,4 +21,20 @@
        regexp: 'home*'       
      check_mode: yes
      register: checkPartition
+   
+   - name: Add fact file encrypted.facts in /etc/rhsm/facts/ as not encypted host if needed
+     lineinfile:
+       path: /etc/rhsm/facts/encrypted.facts
+       state: present
+       create: yes
+       line: {"encrypted": "no"}
+     when: checkPartition.ok 
+     
+     - name: Add fact file encrypted.facts in /etc/rhsm/facts/ as encypted host if that is the case
+     lineinfile:
+       path: /etc/rhsm/facts/encrypted.facts
+       state: present
+       line: {"encrypted": "yes"}
+     when: checkPartition.change
+      
          
