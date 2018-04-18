@@ -89,10 +89,10 @@
    - name: Send facts to Satellite
      command: 'curl -X POST -u {{ satellite_user }}:{{ satellite_psw }} -k -H "Content-Type:application/json" -d @updated_facts_tmp.json https://{{ satellite_ip }}/api/v2/hosts/facts'
       
-   - name: Delete temporary file
-     file:
-       path: /root/updated_facts_tmp.json
-       state: absent
+ #  - name: Delete temporary file
+ #    file:
+ #      path: /root/updated_facts_tmp.json
+  #     state: absent
   
      
      #command: 'curl -X POST -u admin:redhat01 -k -H "Content-Type:application/json" -d @updated_facts_tmp.json https://10.32.170.160/api/v2/hosts/facts'     
