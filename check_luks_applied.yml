@@ -78,7 +78,7 @@
      replace:
        path: /root/updated_facts_tmp.json
        regexp: '}'
-       replace: ', "encrypted": "no"}}'
+       replace: ', "facts": {"encrypted": "no"}}'
        
    - name: Add fact file encrypted.facts in /var/lib/rhsm/facts/facts.json as encypted host if that is the case
      replace:
