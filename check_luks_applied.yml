@@ -78,6 +78,10 @@
      shell: cat "/root/updated_facts_tmp.json"
      register: data
         
+   - name: prueba
+     command: cat -X POST -u \"{{ satellite_user }}\":\"{{ satellite_psw }}\" -k -H "Content-Type:application/json" -d @updated_facts_tmp.json https://\"{{ satellite_ip }}\"/api/v2/hosts/facts
+     ignore_errors: yes
+     
    - name: Send facts to Satellite
      command: curl -X POST -u \"{{ satellite_user }}\":\"{{ satellite_psw }}\" -k -H "Content-Type:application/json" -d @updated_facts_tmp.json https://\"{{ satellite_ip }}\"/api/v2/hosts/facts
      ignore_errors: yes
