@@ -55,8 +55,9 @@
     
    - name: Copy default system facts file /var/lib/rhsm/facts/facts.json to a temporary file
      copy:
-       dest: /root/updated_facts_tmp.json
        src: /var/lib/rhsm/facts/facts.json
+       dest: /root/updated_facts_tmp.json
+       remote_src: yes
 
    - name: Add fact as not encrypted to temporary file
      replace:
