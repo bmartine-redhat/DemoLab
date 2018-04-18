@@ -7,10 +7,17 @@
      vm_destiny: clonedVM
 
   tasks:
+   - name: Check /etc/crypttab contains existence
+       path: /etc/crypttab
+       state: absent     
+     check_mode: yes
+     register: checkFile
+     
    - name: Check wether /etc/crypttab contains "home"
      lineinfile:
        path: /etc/crypttab
        state: absent
        regexp: 'home*'       
-     #check_mode: yes
+     check_mode: yes
      register: checkPartition
+         
