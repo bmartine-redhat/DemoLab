@@ -11,7 +11,7 @@
      lineinfile:
        path: /tmp/crypttab
        state: present
-       regexp: 'home*'
-       
+       line: '?'
+       regexp: 'home*'       
      check_mode: yes
      register: checkPartition
