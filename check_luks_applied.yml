@@ -6,6 +6,7 @@
      satellite_ip: 10.32.170.160
      satellite_user: admin
      satellite_psw: redhat01
+     host_name: host
 
   tasks:
  #  - name: Check /etc/crypttab contains existence
@@ -61,13 +62,13 @@
        
    - name: Fetch hostname
      shell: cat "/etc/hostname"
-     register: hostname 
+     register: host_name 
 
    - name: Give json format to temporary file
      replace:
        path: /root/updated_facts_tmp.json
        regexp: '\{'
-       replace: '{"name": "{{ hostname }}", "facts": {'
+       replace: '{"name": "{{ host_name }}", "facts": {'
        
    - name: Add fact as not encrypted to temporary file
      replace:
