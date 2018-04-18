@@ -9,7 +9,7 @@
   tasks:
    - name: Check wether /etc/crypttab contains "home"
      lineinfile:
-       path: /tmp/crypttab
+       path: /etc/crypttab
        state: present
        line: '?'
        regexp: 'home*'       
