@@ -70,7 +70,7 @@
        create: yes
        state: present
        #      regexp: '\{'
-       line: '{"name": "{{ inventory_hostname }}", "facts": {"encrypted": "no"}}'
+       line: "{\"name\": \"{{ inventory_hostname }}\", \"facts\": {\"encrypted\": \"no\"}}'
        
 #   - name: Add fact as not encrypted to temporary file
 #     replace:
