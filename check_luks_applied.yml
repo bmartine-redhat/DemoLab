@@ -54,27 +54,29 @@
        backup: yes
      when: (homeEncrypted.changed and swapEncrypted)
     
-   - name: Copy default system facts file /var/lib/rhsm/facts/facts.json to a temporary file
-     copy:
-       src: /var/lib/rhsm/facts/facts.json
-       dest: /root/updated_facts_tmp.json
-       remote_src: yes
+#  - name: Copy default system facts file /var/lib/rhsm/facts/facts.json to a temporary file
+ #    copy:
+ #      src: /var/lib/rhsm/facts/facts.json
+ #      dest: /root/updated_facts_tmp.json
+ #      remote_src: yes
        
-   - name: Fetch hostname
-     shell: cat "/etc/hostname"
-     register: host_name 
+#   - name: Fetch hostname
+#     shell: cat "/etc/hostname"
+#     register: host_name 
 
    - name: Give json format to temporary file
-     replace:
+     lineinfile:
        path: /root/updated_facts_tmp.json
-       regexp: '\{'
-       replace: '{"name": "{{ inventory_hostname }}", "facts": {'
+       create: yes
+       state: present
+ #      regexp: '\{'
+       line: '{"name": "{{ inventory_hostname }}", "facts": {"encrypted": "no"}'
        
-   - name: Add fact as not encrypted to temporary file
-     replace:
-       path: /root/updated_facts_tmp.json
-       regexp: '}'
-       replace: ', "encrypted": "no"}}'
+#   - name: Add fact as not encrypted to temporary file
+#     replace:
+#       path: /root/updated_facts_tmp.json
+#       regexp: '}'
+ #      replace: ', "encrypted": "no"}}'
        
    - name: Add fact file encrypted.facts in /var/lib/rhsm/facts/facts.json as encypted host if that is the case
      replace:
