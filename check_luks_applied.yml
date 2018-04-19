@@ -65,14 +65,9 @@
 #     register: host_name 
 
    - name: Create temporary file with json structure to send to Satellite by the API
-     lineinfile:
+     template:
+       src: templates/updated_facts_tmp.json.j2
        dest: /root/updated_facts_tmp.json
-       create: yes
-       state: present
-       #      regexp: '\{'
-       line: '{"name": "{{ inventory_hostname }}"}'
-       #line: {"name": "{{ inventory_hostname }}", "facts": {"encrypted": "no"}}
-       #line: "{\"name\": \"{{ inventory_hostname }}\", \"facts\": {\"encrypted\": \"no\"}}"
        
    - name: By default, assume the system is not encrypted and add fact to the temporary file
      replace:
