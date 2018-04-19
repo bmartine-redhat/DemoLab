@@ -3,7 +3,7 @@
   user: root
   hosts: all
   vars:
-     satellite_ip: 10.32.170.160
+     satellite_ip: 10.32.170.134
      satellite_user: admin
      satellite_psw: redhat01
      host_name: host
@@ -64,21 +64,21 @@
 #     shell: cat "/etc/hostname"
 #     register: host_name 
 
-   - name: Give json format to temporary file
+   - name: Create
      lineinfile:
        dest: /root/updated_facts_tmp.json
        create: yes
        state: present
        #      regexp: '\{'
-       #line: '{"name": "{{ inventory_hostname }}"}'
+       line: '{"name": "{{ inventory_hostname }}"}'
        #line: {"name": "{{ inventory_hostname }}", "facts": {"encrypted": "no"}}
        line: "{\"name\": \"{{ inventory_hostname }}\", \"facts\": {\"encrypted\": \"no\"}}"
        
- #  - name: Add fact as not encrypted to temporary file
- #    replace:
- #      path: /root/updated_facts_tmp.json
- #      regexp: '}'
- #      replace: ', "facts": {"encrypted": "no"}}'
+   - name: Add fact as not encrypted to temporary file
+     replace:
+       path: /root/updated_facts_tmp.json
+       regexp: '}'
+       replace: ', "facts": {"encrypted": "no"}}'
        
    - name: Add fact file encrypted.facts in /var/lib/rhsm/facts/facts.json as encypted host if that is the case
      replace:
