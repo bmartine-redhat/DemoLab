@@ -64,21 +64,28 @@
 #     shell: cat "/etc/hostname"
 #     register: host_name 
 
-   - name: Create
+   - name: Create temporary file with json structure to send to Satellite by the API
      lineinfile:
        dest: /root/updated_facts_tmp.json
        create: yes
        state: present
        #      regexp: '\{'
+       insertafter: EOF
        line: '{"name": "{{ inventory_hostname }}"}'
        #line: {"name": "{{ inventory_hostname }}", "facts": {"encrypted": "no"}}
        #line: "{\"name\": \"{{ inventory_hostname }}\", \"facts\": {\"encrypted\": \"no\"}}"
        
-   - name: Add fact as not encrypted to temporary file
+   - name: By default, assume the system is not encrypted: add fact to the temporary file
      replace:
        path: /root/updated_facts_tmp.json
        regexp: '}'
        replace: ', "facts": {"encrypted": "no"}}'
+       
+  # - name: Replace ' with " for the json file
+ #    replace:
+ #     path: /root/updated_facts_tmp.json
+ #      regexp: '
+#       replace "
        
    - name: Add fact file encrypted.facts in /var/lib/rhsm/facts/facts.json as encypted host if that is the case
      replace:
