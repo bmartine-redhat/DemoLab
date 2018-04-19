@@ -70,7 +70,7 @@
        create: yes
        state: present
        #      regexp: '\{'
-       line: '{"name": '"{{ inventory_hostname }}"}'
+       line: '{"name": ""{{ inventory_hostname }}""}'
        #line: {"name": "{{ inventory_hostname }}", "facts": {"encrypted": "no"}}
        #line: "{\"name\": \"{{ inventory_hostname }}\", \"facts\": {\"encrypted\": \"no\"}}"
        
