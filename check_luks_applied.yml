@@ -83,8 +83,8 @@
    - name: Replace ' with " for the json file
      replace:
       path: /root/updated_facts_tmp.json
-       regexp: '
-       replace "
+       regexp: "'"
+       replace '"'
        
    - name: Add fact file encrypted.facts in /var/lib/rhsm/facts/facts.json as encypted host if that is the case
      replace:
