@@ -69,12 +69,6 @@
        src: templates/updated_facts_tmp.json.j2
        dest: /root/updated_facts_tmp.json
        
-   - name: By default, assume the system is not encrypted and add fact to the temporary file
-     replace:
-       path: /root/updated_facts_tmp.json
-       regexp: '}'
-       replace: ', "facts": {"encrypted": "no"}}'
-       
    - name: Add fact file encrypted.facts in /var/lib/rhsm/facts/facts.json as encypted host if that is the case
      replace:
        path: /root/updated_facts_tmp.json 
