@@ -75,7 +75,7 @@
        #line: {"name": "{{ inventory_hostname }}", "facts": {"encrypted": "no"}}
        #line: "{\"name\": \"{{ inventory_hostname }}\", \"facts\": {\"encrypted\": \"no\"}}"
        
-   - name: By default, assume the system is not encrypted: add fact to the temporary file
+   - name: By default, assume the system is not encrypted and add fact to the temporary file
      replace:
        path: /root/updated_facts_tmp.json
        regexp: '}'
