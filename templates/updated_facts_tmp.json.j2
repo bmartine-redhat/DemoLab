@@ -1,1 +1,1 @@
-{"name": "{{ ansible_fqdn }}", "facts": {"encrypted": "no"}}
+{"name": "{{ ansible_fqdn }}", "facts": {"encrypted": "{{ server_encrypted | default('disabled') }}"}}

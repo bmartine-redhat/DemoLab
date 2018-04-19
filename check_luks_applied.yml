@@ -24,7 +24,7 @@
      check_mode: yes
      register: homeEncrypted
    
-   - name: Check wether /etc/crypttab contains "home"
+   - name: Check wether /etc/crypttab contains "swap"
      lineinfile:
        path: /etc/crypttab
        state: absent
@@ -44,58 +44,29 @@
        state: present
        create: yes
        backup: yes
-       line: {"encrypted": "no"}
+       line: {"encrypted": "disable"}
           
    - name: Add fact file encrypted.facts in /etc/rhsm/facts/ as encrypted host if that is the case
      replace:
        path: /etc/rhsm/facts/encrypted.facts
-       regexp: 'no'
-       replace: 'yes'
-       backup: yes
-     when: (homeEncrypted.changed and swapEncrypted)
+       regexp: 'disable'
+       replace: 'enable'
+     when: (homeEncrypted.changed and swapEncrypted.changed)
     
-#  - name: Copy default system facts file /var/lib/rhsm/facts/facts.json to a temporary file
- #    copy:
- #      src: /var/lib/rhsm/facts/facts.json
- #      dest: /root/updated_facts_tmp.json
- #      remote_src: yes
-       
-#   - name: Fetch hostname
-#     shell: cat "/etc/hostname"
-#     register: host_name 
+   - name: Create server_encrypted ansible fact
+     set_fact:
+       server_encrypted: enabled
+     when: (homeEncrypted.changed and swapEncrypted)
 
    - name: Create temporary file with json structure to send to Satellite by the API
      template:
        src: templates/updated_facts_tmp.json.j2
        dest: /root/updated_facts_tmp.json
        
-   - name: Add fact file encrypted.facts in /var/lib/rhsm/facts/facts.json as encypted host if that is the case
-     replace:
-       path: /root/updated_facts_tmp.json 
-       regexp: '"encrypted": "no"'
-       replace: '"encrypted": "yes"'
-     when: (homeEncrypted.changed and swapEncrypted)
-               
    - name: Send facts to Satellite
-     command: 'curl -X POST -u {{ satellite_user }}:{{ satellite_psw }} -k -H "Content-Type:application/json" -d @updated_facts_tmp.json https://{{ satellite_ip }}/api/v2/hosts/facts'
-      
- #  - name: Delete temporary file
- #    file:
- #      path: /root/updated_facts_tmp.json
-  #     state: absent
-  
+     command: 'curl -X POST -u {{ satellite_user }}:{{ satellite_psw }} -k -H "Content-Type:application/json" -d @/root/updated_facts_tmp.json https://{{ satellite_ip }}/api/v2/hosts/facts'
      
-     #command: 'curl -X POST -u admin:redhat01 -k -H "Content-Type:application/json" -d @updated_facts_tmp.json https://10.32.170.160/api/v2/hosts/facts'     
-   #  uri:
-   #    url: http://{{ satellite_ip }}/api/v2/hosts/facts
-   #    method: POST
-   #    user: "{{ satellite_user }}"
-   #    password: "{{ satellite_psw }}"
-   #    body: data
-   #    return_content: no
-   #    validate_certs: no
-   #    HEADER_Content-Type: application/json
-   #    HEADER_Accept: :application/json,version=2
-       
-       
-         
+   - name: Delete temporary file
+     file:
+       path: /root/updated_facts_tmp.json
+       state: absent
