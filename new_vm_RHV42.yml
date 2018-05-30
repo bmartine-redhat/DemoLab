@@ -100,9 +100,9 @@
         method: GET
         return_content: no
    
-   - name: Add "{{ new_vm_ip }}" to Dynamic inventory
+   - name: Add "{{ vm_ip }}" to Dynamic inventory
      uri:
-        url: "http://10.32.170.153/add_ip.php?ip={{ new_vm_ip }}"
+        url: "http://10.32.170.153/add_ip.php?ip={{ vm_ip }}"
         method: GET
         return_content: no
  
