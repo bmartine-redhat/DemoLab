@@ -1,11 +1,13 @@
 ---
 - hosts: localhost
   connection: local
+  vars_files:
+    - vars/telegram_vars.yml
   vars:
     # Tokens Bot
-    tokenBot: XXX
+    #tokenBot: XXX
     # Chat IDs
-    chatID: YYY
+    #chatID: YYY
     telegram_message: "Algo va mal..."
 
   tasks:
