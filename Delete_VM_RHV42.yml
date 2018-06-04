@@ -1,0 +1,36 @@
+---
+- hosts: all
+  remote_user: root
+  vars:
+    vm_name: "XXXX.labmad.redhat.com"
+    compatibility_version: 4.1
+    engine_user: admin@internal
+    engine_password: "XXXX"
+    engine_url: https://rhhi.labmad.redhat.com/ovirt-engine/api
+    cluster: RHHI-Cluster
+
+  pre_tasks:
+    - name: Login to oVirt
+      ovirt_auth:
+        url: "{{ engine_url }}"
+        username: "{{ engine_user }}"
+        password: "{{ engine_password }}"
+        insecure: "{{ engine_insecure | default(true) }}"
+      tags:
+        - always
+
+  tasks:
+   - name: DELETE Tower VM
+     ovirt_vms:
+        auth: "{{ ovirt_auth }}"
+        name: "{{ vm_name }}"      
+        state: absent
+        cluster: "{{ cluster }}"
+
+  post_tasks:
+    - name: Logout from oVirt
+      ovirt_auth:
+        state: absent
+        ovirt_auth: "{{ ovirt_auth }}"
+      tags:
+        - always
