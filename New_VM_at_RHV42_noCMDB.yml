@@ -2,16 +2,15 @@
 - hosts: all
   remote_user: root
   vars:
-    vm_name: "test00.labmad.redhat.com"
-    vm_ip: "10.32.170.XXX"
-    vm_root_pw: "XXXXX"
-    vm_cores: "2"
-    vm_mem: "1024MiB"
-    vm_msk: "255.255.255.0"
-    vm_gw: "10.32.170.254"
-    vm_dns: "10.32.170.50"
-    vm_dns_search: "labmad.redhat.com"
-    compatibility_version: 4.1
+    new_vm_name: "test00.labmad.redhat.com"
+    new_vm_ip: "10.32.170.XXX"
+    new_vm_root_pw: "XXXXX"
+    new_vm_cores: "2"
+    new_vm_mem: "1024MiB"
+    new_vm_msk: "255.255.255.0"
+    new_vm_gw: "10.32.170.254"
+    new_vm_dns: "10.32.170.50"
+    new_vm_dns_search: "labmad.redhat.com"
     engine_user: admin@internal
     engine_password: "XXXXX"
     engine_url: https://rhhi.labmad.redhat.com/ovirt-engine/api
@@ -32,23 +31,23 @@
    - name: Creating VM
      ovirt_vms:
         auth: "{{ ovirt_auth }}"
-        name: "{{ vm_name }}"      
+        name: "{{ new_vm_name }}"      
         state: running
         template: "{{ template }}"
         cluster: "{{ cluster }}"
-        memory: "{{ vm_mem }}"
-        cpu_cores: "{{ vm_cores }}"
+        memory: "{{ new_vm_mem }}"
+        cpu_cores: "{{ new_vm_cores }}"
         high_availability: false
         cloud_init:
           nic_boot_protocol: static
-          nic_ip_address: "{{ vm_ip }}"
-          nic_netmask: "{{ vm_msk }}"
-          nic_gateway: "{{ vm_gw }}" 
-          dns_servers: "{{ vm_dns }}" 
-          dns_search: "{{ vm_dns_search }}"
+          nic_ip_address: "{{ new_vm_ip }}"
+          nic_netmask: "{{ new_vm_msk }}"
+          nic_gateway: "{{ new_vm_gw }}" 
+          dns_servers: "{{ new_vm_dns }}" 
+          dns_search: "{{ new_vm_dns_search }}"
           nic_name: eth0
           nic_on_boot: true
-          host_name: "{{ vm_name }}"
+          host_name: "{{ new_vm_name }}"
           custom_script: |
             write_files:
              - content: |
@@ -56,12 +55,12 @@
                path: /root/.ssh/authorized_keys
                permissions: '0600'
           user_name: root
-          root_password: "{{ vm_root_pw }}"
+          root_password: "{{ new_vm_root_pw }}"
 
 
    - name: Wait until new VM be accesible
      wait_for:
-       host: "{{ vm_ip }}"
+       host: "{{ new_vm_ip }}"
        port: 22
        delay: 2
  
@@ -70,29 +69,29 @@
        path: /etc/resolv.conf
        regexp: "^nameserver"
        state: absent
-     delegate_to: "{{ vm_ip }}"
+     delegate_to: "{{ new_vm_ip }}"
 
    - name: Set unique nameserver in /etc/resolv.conf
      lineinfile:
        path: /etc/resolv.conf
        regexp: "^nameserver"
-       line: "nameserver {{ vm_dns }}"
+       line: "nameserver {{ new_vm_dns }}"
        state: present
-     delegate_to: "{{ vm_ip }}"
+     delegate_to: "{{ new_vm_ip }}"
 
-   - name: Set Hostname "{{ vm_name }}"
+   - name: Set Hostname "{{ new_vm_name }}"
      hostname:
-        name: "{{ vm_name }}"
-     delegate_to: "{{ vm_ip }}"
+        name: "{{ new_vm_name }}"
+     delegate_to: "{{ new_vm_ip }}"
 
-   - name: Name resolution for "{{ vm_name }}"
+   - name: Name resolution for "{{ new_vm_name }}"
      lineinfile:
         dest=/etc/hosts
-        regexp="^{{ vm_ip }}"
-        line='{{ vm_ip }} {{ vm_name }}'
+        regexp="^{{ new_vm_ip }}"
+        line='{{ new_vm_ip }} {{ new_vm_name }}'
         state=present
      notify: Restart DNS
-     delegate_to: "{{ vm_dns }}"
+     delegate_to: "{{ new_vm_dns }}"
     
    - name: Add repository
      yum_repository:
@@ -117,4 +116,4 @@
   handlers:
     - name: Restart DNS
       systemd: state=restarted name=dnsmasq
-      delegate_to: "{{ vm_dns }}"
+      delegate_to: "{{ new_vm_dns }}"
