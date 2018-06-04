@@ -93,30 +93,18 @@
         state=present
      notify: Restart DNS
      delegate_to: "{{ vm_dns }}"
-   
-   - name: Clear CMDB list
-     uri:
-        url: "http://10.32.170.153/clear.php"
-        method: GET
-        return_content: no
-   
-   - name: Add "{{ vm_ip }}" to Dynamic inventory
-     uri:
-        url: "http://10.32.170.153/add_ip.php?ip={{ vm_ip }}"
-        method: GET
-        return_content: no
+    
+   - name: Add repository
+     yum_repository:
+       name: epel
+       description: EPEL YUM repo
+       baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+     
+   - name: Install remaining packages pre-reqs
+     yum: update_cache=yes name=ovirt-guest-agent-common state=latest
  
-#   - name: Add repository
-#     yum_repository:
-#       name: epel
-#       description: EPEL YUM repo
-#       baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
-#     
-#   - name: Install remaining packages pre-reqs
-#     yum: update_cache=yes name=ovirt-guest-agent-common state=latest
-# 
-#   - name: Enable ovirt-guest-tools service
-#     systemd: state=started name=ovirt-guest-agent.service
+   - name: Enable ovirt-guest-tools service
+     systemd: state=started name=ovirt-guest-agent.service
  
   post_tasks:
     - name: Logout from oVirt
