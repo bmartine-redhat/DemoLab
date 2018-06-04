@@ -3,14 +3,14 @@
   connection: local
   vars:
     # Tokens Bot
-    tokenBot: 'XXXX'
+    tokenBot: XXX
     # Chat IDs
-    chatID: "YYYY"
+    chatID: YYY
     telegram_message: "Algo va mal..."
 
   tasks:
     - name: Sending message to Telegram private chat/group
       telegram: 
-         token: {{ tokenBot }}
+         token: '{{ tokenBot }}'
          chat_id: {{ chatID }}
          msg: {{ telegram_message }}
