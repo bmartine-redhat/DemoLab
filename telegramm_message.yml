@@ -9,9 +9,8 @@
     telegram_message: "Algo va mal..."
 
   tasks:
-    - name: Sending message to Telegram
+    - name: Sending message to Telegram private chat/group
       telegram: 
          token: "{{ tokenBot }}"
          chat_id: "{{ chatID }}"
          msg: "{{ telegram_message }}"
-      when: '"Telegram" in notification_tool'
