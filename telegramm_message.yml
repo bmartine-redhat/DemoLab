@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  connection: local
+  vars:
+    # Tokens Bot
+    tokenBot: 'XXXX'
+    # Chat IDs
+    chatID: "YYYY"
+    telegram_message: "Algo va mal..."
+
+  tasks:
+    - name: Sending message to Telegram
+      telegram: 
+         token: "{{ tokenBot }}"
+         chat_id: "{{ chatID }}"
+         msg: {{ telegram_message }}"
+      when: '"Telegram" in notification_tool'
