@@ -13,5 +13,5 @@
       telegram: 
          token: "{{ tokenBot }}"
          chat_id: "{{ chatID }}"
-         msg: {{ telegram_message }}"
+         msg: "{{ telegram_message }}"
       when: '"Telegram" in notification_tool'
