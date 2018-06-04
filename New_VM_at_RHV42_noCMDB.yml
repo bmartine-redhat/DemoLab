@@ -97,11 +97,14 @@
      yum: name=epel-release state=latest
      delegate_to: "{{ new_vm_ip }}"
      
-   - name: Install remaining packages pre-reqs
-     yum: update_cache=yes name=ovirt-guest-agent-common state=latest
- 
-   - name: Enable ovirt-guest-tools service
-     systemd: state=started name=ovirt-guest-agent.service
+   - name: Install ovirt guest tools
+     yum: name=ovirt-guest-agent-common state=latest
+     delegate_to: "{{ new_vm_ip }}"
+     
+   - name: Start ovirt guest tools
+     systemd: state=started name=ovirt-guest-agent
+     delegate_to: "{{ new_vm_ip }}"
+
  
   post_tasks:
     - name: Logout from oVirt
