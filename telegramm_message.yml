@@ -8,7 +8,7 @@
     #tokenBot: XXX
     # Chat IDs
     #chatID: YYY
-    telegram_message: "Algo va mal..."
+    telegram_message: "Algo ha ido mal en {{ ansible_hostname }} y el servicio ha sido reconfigurado..."
 
   tasks:
     - name: Sending message to Telegram private chat/group
