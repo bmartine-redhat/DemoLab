@@ -1,0 +1,9 @@
+---
+- name: Playbook to simulate fail
+  hosts: "{{ servers }}"
+
+  tasks:
+    - name: Install a package
+      yum:
+        name: httpd
+        state: present
