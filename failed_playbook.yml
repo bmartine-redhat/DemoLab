@@ -1,6 +1,6 @@
 ---
 - name: Playbook to simulate fail
-  hosts: "{{ servers }}"
+  hosts: all
 
   tasks:
     - name: Install a package
