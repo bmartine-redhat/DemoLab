@@ -1,6 +1,6 @@
 ---
 - name: "Configure F5: hostname"
-  hosts: tmos
+  hosts: 10.32.170.154
   connection: local
   gather_facts: no
 
