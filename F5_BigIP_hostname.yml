@@ -8,7 +8,7 @@
     - name: Ensure state of hostname
       bigip_hostname:
         server: "10.32.170.154"
-        user: "root"
-        password: "default"
+        user: "admin"
+        password: "admin"
         validate_certs: "no"
         hostname: "bigIP.labmad.redhat.com"
