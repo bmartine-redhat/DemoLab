@@ -1,0 +1,14 @@
+---
+- name: "Configure F5: hostname"
+  hosts: tmos
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: Ensure state of hostname
+      bigip_hostname:
+        server: "10.32.170.154"
+        user: "admin"
+        password: "admin"
+        validate_certs: "no"
+        hostname: "bigIP.labmad.redhat.com"
