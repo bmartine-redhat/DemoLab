@@ -19,6 +19,7 @@
     engine_user: admin@internal
     engine_password: XXXXXX
     engine_url: https://rhvm.labmad.redhat.com/ovirt-engine/api
+    template: centos7-template
 
   pre_tasks:
     - name: Login to oVirt
@@ -36,7 +37,7 @@
         auth: "{{ ovirt_auth }}"
         name: "{{ new_vm_name }}"      
         state: present
-        template: centos7-template
+        template: "{{ template }}"
         cluster: Top_Nodes
         memory: "{{ new_vm_mem }}"
         high_availability: true
@@ -60,7 +61,6 @@
 
    - name: sleep for 30 seconds to contact VM
      wait_for: timeout=30
-
 
    - name: Set Hostname "{{ new_vm_name }}"
      hostname:
