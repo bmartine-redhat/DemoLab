@@ -1,0 +1,31 @@
+---
+- name: Createa a new VIP
+  hosts: 10.32.170.154
+  connection: local
+  vars:
+    new_VIP_IP: 10.32.170.155
+    new_VIP_id: new_VIP
+    destination_IP: 10.32.170.156
+    pool_id: new_pool
+    port_number: 80
+    f5_password: xxx
+    f5_user: admin
+    VIP_description: new app
+
+  tasks:
+    - name: Create a VIP
+      bigip_virtual_server:
+        description: "{VIP_description{}}"
+        destination: "{{destination_IP}}"
+        name: "{{new_VIP_id}}"
+        pool: "{{pool_id}}"
+        port: "{{port_number}}" 
+        server: "{{inventory_hostname}}"
+#        snat: "{{}}"
+        user: "{{f5_user}}"
+        password: "{{f5_password}}"
+#        all_profiles:
+#           - http
+#           - clientssl
+        validate_certs: no
+      delegate_to: localhost
