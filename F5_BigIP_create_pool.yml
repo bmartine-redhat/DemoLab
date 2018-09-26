@@ -19,7 +19,7 @@
         lb_method: "{{new_pool_lb_method}}"
         name: "{{new_pool_id}}"
         password: "{{f5_password}}"
-        server: "{{f5_servers}}"
+        #server: "{{f5_servers}}"
         user: "{{f5_user}}"
         validate_certs: no
       delegate_to: localhost
