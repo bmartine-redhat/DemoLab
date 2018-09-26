@@ -6,6 +6,7 @@
   vars:
     new_pool_id: new_pool
     new_pool_lb_method: ratio-member
+    pool_status: present
     f5_password: xxx
     f5_user: admin
   
@@ -18,6 +19,7 @@
         password: "{{f5_password}}"
         #server: "{{f5_servers}}"
         server: "{{ inventory_hostname }}"
+        state: "{{pool_status}}"
         user: "{{f5_user}}"
         validate_certs: no
       delegate_to: localhost
