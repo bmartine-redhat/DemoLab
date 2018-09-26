@@ -5,10 +5,7 @@
   gather_facts: no
   vars:
     new_pool_id: new_pool
-    new_pool_server: server1
-    new_pool_user: admin
     new_pool_lb_method: ratio-member
-    #f5_servers: 10.32.170.154
     f5_password: xxx
     f5_user: admin
   
