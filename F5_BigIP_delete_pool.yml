@@ -1,0 +1,23 @@
+---
+- name: "Create a pool"
+  hosts: 10.32.170.154
+  connection: local
+  gather_facts: no
+  vars:
+    new_pool_id: new_pool
+    new_pool_server: server1
+    new_pool_user: admin
+    new_pool_lb_method: ratio-member
+    f5_servers: 10.32.170.154
+    f5_password: xxx
+    f5_user: admin
+  
+  tasks:
+    - name: Create a pool
+      bigip_pool:
+        name: "{{new_pool_id}}"
+        password: "{{f5_password}}"
+        server: "{{nventory_hostname}}"
+        user: "{{f5_user}}"
+        state: absent
+      delegate_to: localhost
