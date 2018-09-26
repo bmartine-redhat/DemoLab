@@ -16,4 +16,5 @@
         server: "{{inventory_hostname}}"
         user: "{{f5_user}}"
         state: absent
+        lb_method: "{{ratio-member}}"
       delegate_to: localhost
