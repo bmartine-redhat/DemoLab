@@ -20,6 +20,7 @@
         name: "{{new_pool_id}}"
         password: "{{f5_password}}"
         #server: "{{f5_servers}}"
+        server: "{{ inventory_hostname }}"
         user: "{{f5_user}}"
         validate_certs: no
       delegate_to: localhost
