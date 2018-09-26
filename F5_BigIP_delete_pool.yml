@@ -4,7 +4,7 @@
   connection: local
   gather_facts: no
   vars:
-    pool_to_delete_id: pool1
+    pool_to_delete_id: new_pool
     f5_password: xxx
     f5_user: admin
   
@@ -16,5 +16,4 @@
         server: "{{inventory_hostname}}"
         user: "{{f5_user}}"
         state: absent
-        lb_method: ratio-member
       delegate_to: localhost
