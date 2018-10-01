@@ -9,7 +9,7 @@
     f5_user: admin
 
   tasks:
-    - name: Create node1
+    - name: Delete node
       bigip_node:
         provider:
           server: "{{inventory_hostname}}"
