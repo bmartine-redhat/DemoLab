@@ -4,7 +4,7 @@
   connection: local
   gather_facts: no
   vars:
-    new_host_id: new_host
+    host_id: new_host
     f5_password: xxx
     f5_user: admin
 
@@ -17,7 +17,7 @@
           password: "{{f5_password}}"
           validate_certs: no
           transport: rest
-        name: "{{new_host_id}}"
+        name: "{{host_id}}"
         state: absent
       delegate_to: localhost
 
