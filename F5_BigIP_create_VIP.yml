@@ -3,7 +3,6 @@
   hosts: 10.32.170.154
   connection: local
   vars:
-    new_VIP_IP: 10.32.170.155
     new_VIP_id: new_VIP
     destination_IP: 10.32.170.156
     pool_id: new_pool
@@ -15,7 +14,7 @@
   tasks:
     - name: Create a VIP
       bigip_virtual_server:
-        description: "{VIP_description{}}"
+        description: "{VIP_description}}"
         destination: "{{destination_IP}}"
         name: "{{new_VIP_id}}"
         pool: "{{pool_id}}"
