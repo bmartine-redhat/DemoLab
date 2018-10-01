@@ -3,7 +3,7 @@
   hosts: 10.32.170.154
   connection: local
   vars:
-    new_VIP_id: new_VIP
+    VIP_id: new_VIP
     destination_IP: 10.32.170.156
     pool_id: new_pool
     port_number: 80
@@ -22,11 +22,10 @@
           password: "{{f5_password}}"
           validate_certs: no
           transport: rest
-        name: "{{new_VIP_id}}"
+        name: "{{VIP_id}}"
         pool: "{{pool_id}}"
         port: "{{port_number}}" 
 #        snat: "{{}}"
         all_profiles:
            - http
-        validate_certs: no
       delegate_to: localhost

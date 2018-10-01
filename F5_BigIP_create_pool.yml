@@ -4,8 +4,8 @@
   connection: local
   gather_facts: no
   vars:
-    new_pool_id: new_pool
-    new_pool_lb_method: ratio-member
+    pool_id: new_pool
+    pool_lb_method: ratio-member
     pool_status: present
     f5_password: xxx
     f5_user: admin
@@ -14,8 +14,8 @@
     - name: Create a pool
       bigip_pool:
        #slow_ramp_time: 120
-        lb_method: "{{new_pool_lb_method}}"
-        name: "{{new_pool_id}}"
+        lb_method: "{{pool_lb_method}}"
+        name: "{{pool_id}}"
         provider:
           password: "{{f5_password}}"
           server: "{{ inventory_hostname }}"

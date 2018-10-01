@@ -4,8 +4,8 @@
   connection: local
   gather_facts: no
   vars:
-    new_host_IP: 10.32.170.155
-    new_host_id: new_host
+    host_IP: 10.32.170.155
+    host_id: new_host
     pool_id: new_pool
     f5_password: xxx
     f5_user: admin
@@ -19,7 +19,7 @@
           password: "{{f5_password}}"
           validate_certs: no
           transport: rest
-        host: "{{new_host_IP}}"
-        name: "{{new_host_id}}"
+        host: "{{host_IP}}"
+        name: "{{host_id}}"
       delegate_to: localhost
 
