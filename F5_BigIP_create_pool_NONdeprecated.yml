@@ -19,7 +19,7 @@
         provider.password: "{{f5_password}}"
         #server: "{{f5_servers}}"
         provider.server: "{{ inventory_hostname }}"
-        provider.transport: "{{rest}}"
+        provider.transport: rest
         state: "{{pool_status}}"
         provider.user: "{{f5_user}}"
         provider.validate_certs: no
