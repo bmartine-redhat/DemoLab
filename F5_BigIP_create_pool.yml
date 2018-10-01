@@ -16,10 +16,11 @@
        #slow_ramp_time: 120
         lb_method: "{{new_pool_lb_method}}"
         name: "{{new_pool_id}}"
-        password: "{{f5_password}}"
-        #server: "{{f5_servers}}"
-        server: "{{ inventory_hostname }}"
+        provider:
+          password: "{{f5_password}}"
+          server: "{{ inventory_hostname }}"
+          user: "{{f5_user}}"
+          validate_certs: no
+          transport: rest
         state: "{{pool_status}}"
-        user: "{{f5_user}}"
-        validate_certs: no
       delegate_to: localhost
