@@ -20,11 +20,8 @@
         server_port: 443
         include:
           - virtual_server
-        #include: address_class,certificate,client_ssl_profile,device,device_group,interface,key,node,pool,provision,rule,self_ip,software,system_info,traffic_group,trunk,virtual_address,virtual_server,vlan
         filter: "{{vip_id}}"
-        register: facts
-    #    include: vlan
-#        server_port: 443
+      register: facts
       delegate_to: localhost
 
     - name: print out the results of ios_facts
