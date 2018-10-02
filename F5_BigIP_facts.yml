@@ -29,7 +29,7 @@
     - name: print out the results of ios_facts
       debug:
         #var: bigip_facts['ansible_facts']['virtual_server']['/Common/new_VIP']['default_pool_name']
-        msg: "the partition id / vip is like this {{vip_partition_id}}"
+        msg: "the partition id / vip is like this '{{vip_partition_id}}'"
 #        msg: "{{ bigip_facts['ansible_facts']['virtual_server']['/Common/new_VIP']['default_pool_name'] | basename }}"
 #        msg: "El pool es el {{ [inventory_hostname]['default_pool_name'] }}"
 
