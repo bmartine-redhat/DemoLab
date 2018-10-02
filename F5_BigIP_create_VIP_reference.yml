@@ -46,7 +46,7 @@
           password: "{{f5_password}}"
           validate_certs: no
           transport: rest
-        name: "{{VIP_id}}"
+        name: "{{new_VIP_id}}"
         pool: "{{ bigip_facts['ansible_facts']['virtual_server']['{{partition_id}}/{{old_VIP_id}}']['default_pool_name'] | basename }}"
         port: "{{ bigip_facts['ansible_facts']['virtual_server']['{{partition_id}}/{{old_VIP_id}}']['destination']['port'] }}"
         description: "{{ bigip_facts['ansible_facts']['virtual_server']['{{partition_id}}/{{old_VIP_id}}']['description'] }}"
