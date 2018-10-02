@@ -10,7 +10,7 @@
 
   tasks:
     - name: Collect BIG-IP facts
-      bigip_facts:
+      bigip_device_facts:
         provider:
           server: "{{inventory_hostname}}"
           user: "{{f5_user}}"
