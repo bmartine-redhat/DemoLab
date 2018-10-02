@@ -5,6 +5,7 @@
   gather_facts: no
   vars:
     vip_id: new_vip
+    partition_id: Common
     f5_password: xxx
     f5_user: admin
 
@@ -27,7 +28,8 @@
     - name: print out the results of ios_facts
       debug:
         #var: bigip_facts['ansible_facts']['virtual_server']['/Common/new_VIP']['default_pool_name']
-        msg: "{{ bigip_facts['ansible_facts']['virtual_server']['/Common/new_VIP']['default_pool_name'] | basename }}"
+        msg: "{{ bigip_facts['ansible_facts']['virtual_server'] }}"
+#        msg: "{{ bigip_facts['ansible_facts']['virtual_server']['/Common/new_VIP']['default_pool_name'] | basename }}"
 #        msg: "El pool es el {{ [inventory_hostname]['default_pool_name'] }}"
 
     
