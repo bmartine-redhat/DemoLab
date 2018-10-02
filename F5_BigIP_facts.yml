@@ -1,0 +1,35 @@
+---
+- name: "Retrieve facts from f5"
+  hosts: 10.32.170.154
+  connection: local
+  gather_facts: no
+  vars:
+    vip_id: new_vip
+    f5_password: xxx
+    f5_user: admin
+
+  tasks:
+    - name: GTM facts check
+      bigip_gtm_facts:
+        provider:
+          server: "{{inventory_hostname}}"
+          user: "{{f5_user}}"
+          password: "{{f5_password}}"
+          validate_certs: no
+          transport: cli
+        include: pool,wide_ip,server
+        filter: "{{vip_id}}"
+      delegate_to: localhost
+
+    - name: Collect BIG-IP facts
+      bigip_facts:
+        provider:
+          server: "{{inventory_hostname}}"
+          user: "{{f5_user}}"
+          password: "{{f5_password}}"
+          validate_certs: no
+          transport: cli
+        include: address_class,certificate,client_ssl_profile,device,device_group,interface,key,node,pool,provision,rule,self_ip,software,system_info,traffic_group,trunk,virtual_address,virtual_server,vlan
+        filter: "{{vip_id}}"
+      delegate_to: localhost
+
