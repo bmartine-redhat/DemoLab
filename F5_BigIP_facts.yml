@@ -39,21 +39,10 @@
           - virtual_server
           - vlan
         #include: address_class,certificate,client_ssl_profile,device,device_group,interface,key,node,pool,provision,rule,self_ip,software,system_info,traffic_group,trunk,virtual_address,virtual_server,vlan
-    #    filter: "{{vip_id}}"
+        filter: "{{vip_id}}"
     #    include: vlan
 #        server_port: 443
       delegate_to: localhost
     
-    - name: GTM facts check
-      bigip_gtm_facts:
-        provider:
-          server: "{{inventory_hostname}}"
-          user: "{{f5_user}}"
-          password: "{{f5_password}}"
-          validate_certs: no
-          transport: rest
-        include: pool,wide_ip,server
-        filter: "{{vip_id}}"
-      delegate_to: localhost
 
 
