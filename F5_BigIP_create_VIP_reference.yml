@@ -7,6 +7,7 @@
     new_VIP_id: new_vip
     old_VIP_id: old_vip
     partition_id: Common
+    VIP_partition_VIPid: /{{partition_id}}/{{old_VIP_id}} 
     f5_password: xxx
     f5_user: admin
 
@@ -47,9 +48,9 @@
           validate_certs: no
           transport: rest
         name: "{{new_VIP_id}}"
-        pool: "{{ bigip_facts['ansible_facts']['virtual_server']['/{{partition_id}}/{{old_VIP_id}}']['default_pool_name'] | basename }}"
-        port: "{{ bigip_facts['ansible_facts']['virtual_server']['/{{partition_id}}/{{old_VIP_id}}']['destination']['port'] }}"
-        description: "{{ bigip_facts['ansible_facts']['virtual_server']['/{{partition_id}}/{{old_VIP_id}}']['description'] }}"
+        pool: "{{ bigip_facts['ansible_facts']['virtual_server']['{{VIP_partition_VIPid}}']['default_pool_name'] | basename }}"
+        port: "{{ bigip_facts['ansible_facts']['virtual_server']['/{{VIP_partition_VIPid}}']['destination']['port'] }}"
+        description: "{{ bigip_facts['ansible_facts']['virtual_server']['{{VIP_partition_VIPid}}']['description'] }}"
         destination: "{{ bigip_facts['ansible_facts']['virtual_server']['/{{partition_id}}/{{old_VIP_id}}']['destination']['address'] | basename }}"
 
 #        snat: "{{}}"
