@@ -31,7 +31,7 @@
           user: "{{f5_user}}"
           password: "{{f5_password}}"
           validate_certs: no
-          transport: cli
+          transport: rest
         include: pool,wide_ip,server
         filter: "{{vip_id}}"
       delegate_to: localhost
