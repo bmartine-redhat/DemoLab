@@ -1,0 +1,69 @@
+---
+- name: "Create new VIP from a referenced VIP"
+  hosts: 10.32.170.154
+  connection: local
+  gather_facts: no
+  vars:
+    new_VIP_id: new_vip
+    old_VIP_id: old_vip
+    partition_id: Common
+    f5_password: xxx
+    f5_user: admin
+
+  tasks:
+    - name: Collect VIP facts
+      bigip_facts:
+        #provider:
+        server: "{{inventory_hostname}}"
+        user: "{{f5_user}}"
+        password: "{{f5_password}}"
+        validate_certs: no
+        transport: rest
+        server_port: 443
+        include:
+          - virtual_server
+        filter: "{{old_VIP_id}}"
+      register: bigip_facts
+      delegate_to: localhost
+      
+    - name: Delete VIP
+      bigip_virtual_server:
+        provider:
+          server: "{{inventory_hostname}}"
+          user: "{{f5_user}}"
+          password: "{{f5_password}}"
+          validate_certs: no
+          transport: rest
+        name: "{{old_VIP_id}}"
+        state: absent
+      delegate_to: localhost
+
+    - name: Create new VIP from referenced data
+      bigip_virtual_server:
+        provider:
+          server: "{{inventory_hostname}}"
+          user: "{{f5_user}}"
+          password: "{{f5_password}}"
+          validate_certs: no
+          transport: rest
+        name: "{{VIP_id}}"
+        pool: "{{ bigip_facts['ansible_facts']['virtual_server']['{{partition_id}}/{{old_VIP_id}}']['default_pool_name'] | basename }}"
+        port: "{{ bigip_facts['ansible_facts']['virtual_server']['{{partition_id}}/{{old_VIP_id}}']['destination']['port'] }}"
+        description: "{{ bigip_facts['ansible_facts']['virtual_server']['{{partition_id}}/{{old_VIP_id}}']['description'] }}"
+        destination: "{{ bigip_facts['ansible_facts']['virtual_server']['{{partition_id}}/{{old_VIP_id}}']['destination']['address'] | basename }}"
+
+#        snat: "{{}}"
+#        all_profiles:
+#           - http
+      delegate_to: localhost
+
+    - name: print out the results of ios_facts
+      debug:
+        #var: bigip_facts['ansible_facts']['virtual_server']['/Common/new_VIP']['default_pool_name']
+        msg: "{{ bigip_facts['ansible_facts']['virtual_server'] }}"
+#        msg: "{{ bigip_facts['ansible_facts']['virtual_server']['/Common/new_VIP']['default_pool_name'] | basename }}"
+#        msg: "El pool es el {{ [inventory_hostname]['default_pool_name'] }}"
+
+    
+
+
