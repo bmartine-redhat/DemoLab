@@ -21,7 +21,7 @@
         include:
           - virtual_server
         #include: address_class,certificate,client_ssl_profile,device,device_group,interface,key,node,pool,provision,rule,self_ip,software,system_info,traffic_group,trunk,virtual_address,virtual_server,vlan
-        filter: "{{vip_id}}
+        filter: "{{vip_id}}"
     #    include: vlan
 #        server_port: 443
       delegate_to: localhost
