@@ -21,12 +21,13 @@
         include:
           - virtual_server
         filter: "{{vip_id}}"
-      register: facts
+      register: bigip_facts
       delegate_to: localhost
 
     - name: print out the results of ios_facts
       debug:
-        msg: "El pool es el {{ hostvars[inventory_hostname]['default_pool_name'] }}"
+        var: bigip_facts['ansible_facts']['virtual_server']
+#        msg: "El pool es el {{ [inventory_hostname]['default_pool_name'] }}"
 
     
 
