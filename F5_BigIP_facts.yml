@@ -26,7 +26,8 @@
 
     - name: print out the results of ios_facts
       debug:
-        msg: "{{ facts }}"
+        msg: "El pool es el {{ hostvars[inventory_hostname]['default_pool_name'] }}"
+
     
 
 
