@@ -1,14 +1,14 @@
 ---
 - name: "Create new VIP from a referenced VIP"
-  hosts: 10.32.170.154
+  hosts: all
   connection: local
   gather_facts: no
   vars:
-    new_VIP_id: new_vip
-    old_VIP_id: old_vip
+    new_VIP_id: NUEVA
+    old_VIP_id: new_VIP
     partition_id: Common
     VIP_partition_VIPid: /{{partition_id}}/{{old_VIP_id}} 
-    f5_password: xxx
+    f5_password: adadminn
     f5_user: admin
 
   tasks:
@@ -48,10 +48,10 @@
           validate_certs: no
           transport: rest
         name: "{{new_VIP_id}}"
-        pool: "{{ bigip_facts['ansible_facts']['virtual_server']['{{ VIP_partition_VIPid }}']['default_pool_name'] | basename }}"
-        port: "{{ bigip_facts['ansible_facts']['virtual_server']['{{ VIP_partition_VIPid }}']['destination']['port'] }}"
-        description: "{{ bigip_facts['ansible_facts']['virtual_server']['{{ VIP_partition_VIPid }}']['description'] }}"
-        destination: "{{ bigip_facts['ansible_facts']['virtual_server']['{{ VIP_partition_VIPid }}']['destination']['address'] | basename }}"
+        pool: "{{ bigip_facts['ansible_facts']['virtual_server'][{{ VIP_partition_VIPid }}]['default_pool_name'] | basename }}"
+        port: "{{ bigip_facts['ansible_facts']['virtual_server'][{{ VIP_partition_VIPid }}]['destination']['port'] }}"
+        description: "{{ bigip_facts['ansible_facts']['virtual_server'][{{ VIP_partition_VIPid }}]['description'] }}"
+        destination: "{{ bigip_facts['ansible_facts']['virtual_server'][{{ VIP_partition_VIPid }}]['destination']['address'] | basename }}"
 
 #        snat: "{{}}"
 #        all_profiles:
