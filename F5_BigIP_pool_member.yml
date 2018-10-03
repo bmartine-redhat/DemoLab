@@ -8,7 +8,7 @@
     port_number: 80
     f5_password: xxx
     f5_user: admin
-    #node: { host: '10.32.170.159', name: 'node-1' }
+    node: { host: '10.32.170.159', name: 'node-1' }
   
   tasks:
     - name: Add members to a pool
@@ -20,10 +20,10 @@
           validate_certs: no
           transport: rest
         description: webserver-1
-        host: 10.32.170.159
-        name: new_host 
-       # host: "{{ node.host }}"
-       # name: "{{ node.name }}"
+       # host: 10.32.170.159
+       # name: new_host 
+        host: "{{ node.host }}"
+        name: "{{ node.name }}"
         pool: "{{pool_id}}"
         port: "{{port_number}}" 
         state: present
