@@ -18,7 +18,7 @@
           server: "{{inventory_hostname}}"
           user: "{{f5_user}}"
           validate_certs: no
-          transport: cli
+          transport: rest
         description: webserver-1
         host: 10.32.170.159
         name: node-1
