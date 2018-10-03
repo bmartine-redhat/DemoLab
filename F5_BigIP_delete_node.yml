@@ -1,6 +1,6 @@
 ---
-- name: "Create node and add it to a pool"
-  hosts: 10.32.170.154
+- name: "Delete node"
+  hosts: all
   connection: local
   gather_facts: no
   vars:

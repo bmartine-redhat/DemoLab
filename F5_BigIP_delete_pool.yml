@@ -1,6 +1,6 @@
 ---
 - name: "Delete a pool"
-  hosts: 10.32.170.154
+  hosts: all 
   connection: local
   gather_facts: no
   vars:
@@ -16,4 +16,4 @@
         server: "{{inventory_hostname}}"
         user: "{{f5_user}}"
         state: absent
-      delegate_to: localhost
+      deleg allate_to: localhost

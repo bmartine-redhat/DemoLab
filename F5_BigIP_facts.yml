@@ -1,6 +1,6 @@
 ---
 - name: "Retrieve facts from f5"
-  hosts: 10.32.170.154
+  hosts: all
   connection: local
   gather_facts: no
   vars:

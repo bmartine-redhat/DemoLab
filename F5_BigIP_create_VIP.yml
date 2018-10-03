@@ -1,10 +1,11 @@
 ---
 - name: Createa a new VIP
-  hosts: 10.32.170.154
+  hosts: all
   connection: local
+  gather_facts: no
   vars:
     VIP_id: new_VIP
-    destination_IP: 10.32.170.156
+    destination_IP: x.x.x.x
     pool_id: new_pool
     port_number: 80
     f5_password: xxx

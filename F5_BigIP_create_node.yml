@@ -1,12 +1,13 @@
 ---
-- name: "Create node and add it to a pool"
-  hosts: 10.32.170.154
+- name: "Create node"
+  hosts: all
   connection: local
   gather_facts: no
   vars:
-    host_IP: 10.32.170.155
+    host_IP: x.x.x.x
     host_id: new_host
     pool_id: new_pool
+    partition_id: Common
     f5_password: xxx
     f5_user: admin
 
@@ -14,12 +15,13 @@
     - name: Create node1
       bigip_node:
         provider:
-          server: "{{inventory_hostname}}"
-          user: "{{f5_user}}"
-          password: "{{f5_password}}"
+          server: "{{ inventory_hostname }}"
+          user: "{{ f5_user }}"
+          password: "{{ f5_password }}"
           validate_certs: no
           transport: rest
-        host: "{{host_IP}}"
-        name: "{{host_id}}"
+        host: "{{ host_IP }}"
+        name: "{{ host_id }}"
+        partition: "{{ partition_id }}"
       delegate_to: localhost
 
