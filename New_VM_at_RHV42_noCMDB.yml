@@ -18,7 +18,6 @@
     #cluster: RHHI-Cluster
     #    engine_url: https://rhhi.labmad.redhat.com/ovirt-engine/api
     engine_url: https://rhvm.labmad.redhat.com/ovirt-engine/api
-    template: CentOS7.5
     cluster: Top_Nodes
 
 
