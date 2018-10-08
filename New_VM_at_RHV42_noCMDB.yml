@@ -13,9 +13,14 @@
     new_vm_dns_search: "labmad.redhat.com"
     engine_user: admin@internal
     engine_password: "XXXXX"
-    engine_url: https://rhhi.labmad.redhat.com/ovirt-engine/api
+    #engine_url: https://rhhi.labmad.redhat.com/ovirt-engine/api
     template: CentOS7.5
-    cluster: RHHI-Cluster
+    #cluster: RHHI-Cluster
+    #    engine_url: https://rhhi.labmad.redhat.com/ovirt-engine/api
+    engine_url: https://rhvm.labmad.redhat.com/ovirt-engine/api
+    template: CentOS7.5
+    cluster: Top_Nodes
+
 
   pre_tasks:
     - name: Login to oVirt
