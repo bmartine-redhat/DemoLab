@@ -6,7 +6,7 @@
   vars:
     ocp_cli: LOCATION_OC
     ocp_host: HOST
-    ocp_host_port: PORT
+    ocp_host_port:
     ocp_username: USERNAME
     ocp_password: PASSWORD
     project_name: PROJECT-NAME
@@ -18,7 +18,8 @@
 
   - name: Login into OpenShift
     shell: |
-      {{ ocp_cli }} login https://{{ ocp_host }}:{{ ocp_host_port }} --username='{{ ocp_username }}' --password='{{ ocp_password }}'
+#      {{ ocp_cli }} login https://{{ ocp_host }}:{{ ocp_host_port | default(omit, true) }} --username='{{ ocp_username }}' --password='{{ ocp_password }}'
+      {{ ocp_cli }} login https://{{ ocp_host }} --username='{{ ocp_username }}' --password='{{ ocp_password }}'
 
   - name: Check existing projects
     shell: oc get projects | awk '{ print $1 }'
