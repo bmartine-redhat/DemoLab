@@ -19,7 +19,8 @@
 
   - name: Login into OpenShift
     shell: |
-       {{ ocp_cli }} login https://{{ ocp_host }} --username='{{ ocp_username }}' --password='{{ ocp_password }}'
+       {{ ocp_cli }} login https://{{ ocp_host }} --username='{{ ocp_username }}' --password='{{ ocp_password }}' --insecure-skip-tls-verify=true
+    delegate_to: localhost
 
   - name: Check existing projects
     shell: oc get projects | awk '{ print $1 }'
