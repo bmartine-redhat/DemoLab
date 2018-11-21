@@ -74,7 +74,7 @@
       {{ ocp_cli }} get builds --no-headers=true -n {{ project_name }} | grep {{build_version.stdout}} | awk '{print $4}' 
     register: build_result
     until: "'Complete' in build_result.stdout"
-    retries: 50
+    retries: 75
     delay: 5
     changed_when: false
 
@@ -89,7 +89,7 @@
       {{ ocp_cli }} get pods --no-headers=true -n {{ project_name }} | grep {{build_version.stdout}} | grep -v "deploy" | awk '{print $3}'
     register: pod_status
     until: "'Running' in pod_status.stdout"
-    retries: 50
+    retries: 75
     delay: 5
 
   - name: Get route
@@ -104,7 +104,7 @@
       status_code: 200
     register: route_result
     until: route_result.status == 200
-    retries: 50
+    retries: 75
     delay: 5
     tags: route
 
