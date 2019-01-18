@@ -9,8 +9,8 @@
     gcp_cred_kind: serviceaccount
     gcp_cred_file: 
     service_account_file: /home/my_account.json
-    zone: "europe-west1"
-    region: "europe-west1-b"
+    zone: "europe-west1-b"
+    region: "europe-west1"
 
   tasks:
     - name: create a disk
