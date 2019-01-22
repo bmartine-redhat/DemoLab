@@ -24,16 +24,16 @@
         state: "{{ instance_state }}"
         name: "{{ vm_name}}"
         machine_type: n1-standard-1
-        disks:
-          - auto_delete: true
-            boot: true
-            source: "{{ disk }}"
-        network_interfaces:
-          - network: "{{ network }}"
-            access_configs:
-              - name: 'External NAT'
-                nat_ip: "{{ address }}"
-                type: 'ONE_TO_ONE_NAT'
+    #    disks:
+    #      - auto_delete: true
+    #        boot: true
+    #        source: "{{ disk }}"
+    #    network_interfaces:
+    #      - network: "{{ network }}"
+    #        access_configs:
+    #          - name: 'External NAT'
+    #            nat_ip: "{{ address }}"
+    #            type: 'ONE_TO_ONE_NAT'
         zone: "{{ zone }}"
         project: "{{ project }}"
         auth_kind: "{{ gcp_cred_kind }}"
