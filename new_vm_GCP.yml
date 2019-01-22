@@ -33,6 +33,7 @@
           - https://www.googleapis.com/auth/compute
         state: "{{ instance_state }}"
       register: disk
+      when: instance_state == "present"
     - name: create a network
       gcp_compute_network:
         name: "{{ network_name}}"
