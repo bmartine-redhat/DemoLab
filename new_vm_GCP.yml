@@ -43,7 +43,7 @@
         state: "{{ instance_state }}"
       register: network
 
-    - name: create a address
+    - name: create an address
       gcp_compute_address:
         name: "{{ address_name}}"
         region: "{{ region }}"
@@ -55,7 +55,7 @@
         state: "{{ instance_state }}"
       register: address
 
-    - name: create a instance
+    - name: create an instance
       gcp_compute_instance:
         state: "{{ instance_state }}"
         name: "{{ vm_name}}"
