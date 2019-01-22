@@ -30,8 +30,8 @@
         service_account_file: "{{ gcp_cred_file }}"
         metadata:
           istest: true
-        #scopes:
-        #  - https://www.googleapis.com/auth/compute
+        scopes:
+          - https://www.googleapis.com/auth/compute
       #register: instance
 
     - name: create a network
