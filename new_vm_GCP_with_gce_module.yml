@@ -27,6 +27,7 @@
         machine_type: n1-standard-1
         image_family:  "{{ image }}"
         state: "{{ instance_state }}"
+        metadata: '{ "enable-oslogin" : "TRUE" }'
         service_account_email: "{{ serviceAcc_mail }}"
         credentials_file: "{{ gcp_cred_file }}"
         project_id: "{{ project }}"
