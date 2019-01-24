@@ -1,0 +1,33 @@
+---
+
+- name: Create an instance
+  hosts: localhost
+  gather_facts: no
+  connection: local
+  vars:
+    project: my-project
+    gcp_cred_kind: serviceaccount
+    gcp_cred_file: 
+    serviceAcc_mail:
+    image: 'projects/rhel-cloud/global/images/rhel-7-v20190116'
+    zone: "europe-west1-b"
+    region: "europe-west1"
+    disk_name: 'disk-instance'
+    disk_size_gb: 10
+    network_name: 'network-instance'
+    address_name: 'address-instance'
+    vm_name: 'test-vm'
+    instance_state: "present"
+
+  tasks:
+    - name: prueba gce
+      gce:
+        instance_names: "{{ vm_name}}"
+        zone: "{{ zone }}" 
+        machine_type: n1-standard-1
+        image_family:  "{{ image }}"
+        state: present
+        service_account_email: "{{ serviceAcc_mail }}"
+        credentials_file: "{{ gcp_cred_file }}"
+        project_id: "{{ project }}"
+        disk_size: "{{ disk_size_gb }}"
