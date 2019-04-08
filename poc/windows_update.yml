@@ -1,0 +1,14 @@
+---
+- name: Run Updates on Terminal Servers
+  hosts: all
+  connection: winrm
+  vars:
+    update_category: ""    #categories: Application, CriticalUpdates, DefinitionUpdates, SecurityUpdates, Updates
+    reboot_required: ""
+
+  tasks:
+    - name: Update required categories 
+      win_updates:
+        category_name: "{{ update_category }}"
+        reboot: "{{ reboot_required }}"
+

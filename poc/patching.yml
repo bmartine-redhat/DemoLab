@@ -1,0 +1,13 @@
+---
+- name: RHEL patching
+  hosts: all
+  vars:
+    required_package: ""
+    required_state: ""
+
+  tasks:
+    - name: Install package
+      yum:
+        name: "{{ required_package }}"
+        state: "{{ required_state }}"
+

@@ -1,0 +1,20 @@
+---
+- name: RHEL patching via Satellite
+  hosts: all
+  vars:
+    satellite_user: ""
+    satellite_psw: ""
+    satellite_url: ""
+    satellite_API_content: ""
+
+  tasks:
+    - name: Call Satellite API to install Errata
+      uri:
+        url: "{{ satellite_url }}"
+        method: PUT
+        user: "{{ satellite_user }}"
+        password: "{{ satellite_psw }}"
+        HEADER_Content-Type: application/json
+        HEADER_Accept: :application/json,version=2
+        body: "{{ satellite_API_content }}"
+
