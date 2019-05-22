@@ -1,6 +1,6 @@
 ---
 - name: Add IP in CMDB
-  hosts: all
+  hosts: local
   vars:
     new_vm_ip: 10.32.170.150
 
