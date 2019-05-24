@@ -9,7 +9,7 @@ from collections import defaultdict
 
 ovirt_url = "https://rhvm.labmad.redhat.com/ovirt-engine/api"
 ovirt_username = "admin@internal"
-ovirt_password = "redhat01"
+ovirt_password = "xxx"
 
 
 try:
