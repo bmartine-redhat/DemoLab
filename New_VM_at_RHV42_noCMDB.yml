@@ -97,9 +97,9 @@
      notify: Restart DNS
      delegate_to: "{{ new_vm_dns }}"
     
-   #- name: Install epel
-   #  yum: name=epel-release state=latest
-   ##  delegate_to: "{{ new_vm_ip }}"
+   - name: Install epel
+     yum: name=epel-release state=latest
+     delegate_to: "{{ new_vm_ip }}"
      
    - name: Install ovirt guest tools
      yum: 
