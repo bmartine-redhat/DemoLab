@@ -51,7 +51,7 @@
       pool: "{{pool_name}}"
       port: "{{item.split(':')[1]}}"
       host: "{{hostvars[item.split(':')[0]].ansible_host}}"
-      loop: "{{bigip_facts.ltm_pools | json_query(query_string)}}"
+    loop: "{{bigip_facts.ltm_pools | json_query(query_string)}}"
     vars:
      query_string: "[?name=='{{pool_name}}'].members[*].name[]"
  #   when: '"all" in member_name.user_input'
