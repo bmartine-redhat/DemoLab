@@ -1,0 +1,14 @@
+- hosts: all
+
+  vars:
+    gce:
+      email: '{{ lookup("env", "GCE_EMAIL") }}'
+      project: '{{ lookup("env", "GCE_PROJECT") }}'
+
+  tasks:
+
+    - debug:
+        var: gce
+    - shell: 'cat {{ gce.pem_file_path }}'
+      delegate_to: localhost
+
