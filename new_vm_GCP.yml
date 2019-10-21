@@ -7,7 +7,7 @@
   vars:
     project: my-project
     gcp_cred_kind: serviceaccount
-    gcp_cred_file: 
+    gcp_cred_file: '{{ lookup("env", "GCE_PEM_FILE_PATH") }}' 
     image: 'projects/rhel-cloud/global/images/rhel-7-v20190116'
     zone: "europe-west1-b"
     region: "europe-west1"
