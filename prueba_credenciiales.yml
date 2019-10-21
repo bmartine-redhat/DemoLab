@@ -4,6 +4,7 @@
     gce:
       email: '{{ lookup("env", "GCE_EMAIL") }}'
       project: '{{ lookup("env", "GCE_PROJECT") }}'
+      pem_file_path: '{{ lookup("env", "GCE_PEM_FILE_PATH") }}'
 
   tasks:
 
