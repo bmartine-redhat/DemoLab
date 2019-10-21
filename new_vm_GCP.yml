@@ -1,9 +1,9 @@
 ---
 
 - name: Create an instance
-  hosts: all
+  hosts: localhost
   gather_facts: no
-  connection: local
+  #connection: local
   vars:
     project: my-project
     gcp_cred_kind: serviceaccount
