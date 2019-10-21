@@ -32,7 +32,6 @@
           - https://www.googleapis.com/auth/compute
         state: "{{ instance_state }}"
       register: disk
-      become: true
   #  - name: create a network
   #    gcp_compute_network:
   #      name: "{{ network_name}}"
