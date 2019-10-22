@@ -3,7 +3,7 @@
 - name: Create an instance
   hosts: localhost
   gather_facts: no
-  connection: locail
+  connection: local
   vars:
     project: my-project
     gcp_cred_kind: serviceaccount
