@@ -3,11 +3,14 @@
 - name: Create an instance
   hosts: localhost
   gather_facts: no
-  #connection: local
+  #connection: locail
+  vars_files:
+    - gcp_cred_file: vars/chachi.json
   vars:
     project: my-project
     gcp_cred_kind: serviceaccount
-    gcp_cred_file: '{{ lookup("env", "GCE_PEM_FILE_PATH") }}' 
+#    gcp_cred_file: '{{ lookup("env", "GCE_PEM_FILE_PATH") }}' 
+#    gcp_cred_file: 
     image: 'projects/rhel-cloud/global/images/rhel-7-v20190116'
     zone: "europe-west1-b"
     region: "europe-west1"
@@ -32,28 +35,28 @@
           - https://www.googleapis.com/auth/compute
         state: "{{ instance_state }}"
       register: disk
-  #  - name: create a network
-  #    gcp_compute_network:
-  #      name: "{{ network_name}}"
-  #      project: "{{ project }}"
-  #      auth_kind: "{{ gcp_cred_kind }}"
-  #      service_account_file: "{{ gcp_cred_file }}"
-  #      scopes:
-  #        - https://www.googleapis.com/auth/compute
-  #      state: "{{ instance_state }}"
-  #    register: network
+    - name: create a network
+      gcp_compute_network:
+        name: "{{ network_name}}"
+        project: "{{ project }}"
+        auth_kind: "{{ gcp_cred_kind }}"
+        service_account_file: "{{ gcp_cred_file }}"
+        scopes:
+          - https://www.googleapis.com/auth/compute
+        state: "{{ instance_state }}"
+      register: network
 
-  #  - name: create an address
-  #    gcp_compute_address:
-  #      name: "{{ address_name}}"
-  #      region: "{{ region }}"
-  #      project: "{{ project }}"
-  #      auth_kind: "{{ gcp_cred_kind }}"
-  #      service_account_file: "{{ gcp_cred_file }}"
-  #      scopes:
-  #        - https://www.googleapis.com/auth/compute
-  #      state: "{{ instance_state }}"
-  #    register: address
+    - name: create an address
+      gcp_compute_address:
+        name: "{{ address_name}}"
+        region: "{{ region }}"
+        project: "{{ project }}"
+        auth_kind: "{{ gcp_cred_kind }}"
+        service_account_file: "{{ gcp_cred_file }}"
+        scopes:
+          - https://www.googleapis.com/auth/compute
+        state: "{{ instance_state }}"
+      register: address
 
     - name: create an instance
       gcp_compute_instance:
@@ -65,7 +68,7 @@
             boot: true
             source: "{{ disk }}"
         network_interfaces:
-          - network: "{{ network_name }}"
+          - network: "{{ network }}"
  #           access_configs:
  #             - name: 'External NAT'
  #               nat_ip: "{{ address }}"

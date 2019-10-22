@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "rh-madrid",
+  "private_key_id": "f313f9bc985599f7714f92fb818ceb873c6ceae8",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC+idaDqfoOBZ4z\neg6dnTU2QB2OgSqZpS1oaoHe5Z7DDW0UtTfIdH6cd9iBcrVXCsAksLXewgjP+pwW\nrzSHUBRf342tSMNHyKyZVOmjP9Z3Mt3DHpSHwljX3YBec3kCyEtI3crTZWTC2Yfq\nP28iiSxTqgLRgOGbf96asqnVvphmcCY0sAsS/gPukSEtEZHbnft/4AkhSUZYIb56\nTp0F3365gQTGf1c0I1ZZG5wHTatOa6/G8WjZpcaSbnQNt0ekPFBEwfXcTO/DyZLC\nA1G/ts2ctM1DFEcjJETgMe/QxzaIQk/U4USYeg184aHUXADfrz7ncdGefG1Gjq5/\nZaWVIs0hAgMBAAECggEABg8UBzPMg82h7jkfZdut6X+4cOOimygpfXyFjLT4i3NN\n2K66i2FI9WjKNbOUGKR636/O2LqK1TI+7Gm93d+qBjJxquT5cLrs4iNVGp/ZDglM\nC/xY9Mg1Uwf0IQzC+FeuLS8AWCCNR7TrIYPK4OpDwpVRaaATjIJQbdLom6dn6Tnx\nmqpAgwW/lQy7sb/UuaeFvdb+wKu3fUcVLg9UcoMDy4DK5rYIF68IsRQdQfRF0nP4\nKWQI/6WrzRJ/EAxS6By76+89+9UBnHp7bmH7ABXPDRPmS5Haw5iRJds+Vzp+Tndd\nVSkQ+0BsbsRvwWAbtO5GJNai6rmyIQUwppk54x7TAQKBgQD3CM/UwCH8ZS+qt7Jp\nKRZuFbXeK8peiHgtt3RHbVilAAszSxPFWm6Cz4unU3hhHO3fi4+4K6ECcE2AE8Xb\nM/gbBml9H5GpUJfIUkIqUr6GfHQJJCF4jrImlwHfyX+uggtDokmlE0YheA2CZODw\najNPZRSfKl7vvZ9Yh1DKZ6lWyQKBgQDFdB+y+SdhHMA0T5hYLVb7UAgw5XgBuzNW\nJgunbVpYL851qILPjSk7sUOB9fqpLtCIU28noOpM4vO7KDTeYZHW0dtuCn2tdCpu\ncgm0rzRUh5FtNwHApL4wKyqiJp/Jv76wP5B7HtOnU9TLrmRUI6yxtODpkIn6AeTP\n2l6AO6L3mQKBgQDMjLVamsUJctenangGb4ktGjj/gA8Pe7zXTgKwajBuX7zmehIi\n5iB/nE8s/Aa/ku68nZkhjK7DkC38EWNRgJS9++85Nfys0Bj+PG6hEObGASMrtoko\nhC+rmHpqzTQ2UWP2WtjUIUN+zyOQhuti5u0Znr8WlEUMCl15NoKFNpSXUQKBgAQV\nGY6uvhSw7nxmZOT10wWRKwovxGJsx2vxj24fwa1vF5qxKDs4VPDqAlZOiqcy05bt\n+q9cEVwTmSx2cVljtQs2/Y1x5BVRAIuWCgNVWASjZOtYJs4f2drPGauOluEp+LxW\nJBuXkJK2FgE8EtD2h9yIu9m4ZlHn9h4iCrAmC4GJAoGBAIIGzKW22MDWo4BzJgRR\nXPGoDZX0DkuRYvi9rrhEUuLk2IvcjLja6DTsNfGrW+AWD0V3cekas7vtAJOCzQrg\nkLa9tM9wkejB3tIq/uYfgyQWP5BDju6jbXFfNE+IMnEGarLA0C6Xz6FkUEmIYpDs\nsD/DhywxhrhCJ8ZZM3UZ1sTB\n-----END PRIVATE KEY-----\n",
+  "client_email": "rh-madrid-service-account@rh-madrid.iam.gserviceaccount.com",
+  "client_id": "109550930270134105695",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/rh-madrid-service-account%40rh-madrid.iam.gserviceaccount.com"
+}
