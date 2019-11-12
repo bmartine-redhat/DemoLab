@@ -10,12 +10,12 @@
 
     - name: Create configuration file (server_id.cfg) for the server
       file:
-        path: /etc/nagios/servers/{{ new_vm_name }}.cfg
+        path: /usr/local/nagios/etc/hosts/{{ new_vm_name }}.cfg
         state: touch
         
     - name: Add information in config file
       blockinfile:
-        dest: /etc/nagios/servers/{{ new_vm_name }}.cfg
+        dest: /usr/local/nagios/etc/hosts/{{ new_vm_name }}.cfg
         content: |
           define host {
                   use                             linux-server
